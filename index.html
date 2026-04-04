@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Sisterhood Trading Academy</title>
+  <meta property="og:title" content="Sisterhood Trading Academy">
+  <meta property="og:site_name" content="Sisterhood Trading Academy">
+  <meta property="og:description" content="The first women-only day trading community ever built.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* GHL overrides */
+    body, .body-wrapper, .hl_page-creator--content,
+    [id^="section-"], .container-fluid, .row,
+    [class*="col-lg"], [class*="col-md"], [class*="col-sm"], [class*="col-xs"],
+    .inner-section, .section_wrapper {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 auto !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      width: 100% !important;
+      float: none !important;
+    }
+    html, body { background: #fff !important; }
+    html { overflow-x: hidden; scroll-behavior: smooth; }
+    body { overflow-x: hidden; min-width: 0 !important; }
+    *, *::before, *::after { box-sizing: border-box; }
+    img, video, iframe, table, section { max-width: 100% !important; }
+
+    :root {
+      --pink: #2D5A3D;
+      --pink-light: #5A8A6A;
+      --blush: #F2EEEA;
+      --cream: #F7F4F1;
+      --dark: #1A1A1A;
+      --body: #555;
+      --muted: #999;
+      --border: #E3DED9;
+      --white: #fff;
+      --burgundy: #7A3333;
+      --green: #2D5A3D;
+      --red: #7A3333;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; }
+    a { color: inherit; text-decoration: none; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 32px;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+    .nav.nav-hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 18px; font-weight: 600;
+      color: var(--dark); letter-spacing: -0.3px;
+    }
+    .nav-link {
+      font-family: var(--sans); font-size: 13px; font-weight: 600;
+      color: var(--white); letter-spacing: 0.3px;
+      padding: 8px 20px; background: var(--pink); border-radius: 999px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-link:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(45,90,61,0.3); }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding-top: 140px; padding-left: 32px; padding-right: 32px; padding-bottom: 0;
+      text-align: center;
+    }
+    .hero-label {
+      font-family: var(--sans); font-size: 16px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--pink);
+      margin-bottom: 40px;
+    }
+    .hero-image-wrap {
+      position: relative; max-width: 1100px; margin: 0 auto;
+      border-radius: 20px; overflow: hidden;
+    }
+    .hero-img-placeholder {
+      width: 100%; height: 520px;
+      background: linear-gradient(135deg, #F0EBE8, #E8E0DC);
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      color: var(--muted); font-size: 14px; font-weight: 500;
+    }
+    .hero-img-placeholder .ph-sub { font-size: 11px; color: #bbb; margin-top: 4px; }
+    .hero-cta-overlay {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    }
+    .hero-cta-btn {
+      display: inline-block; padding: 14px 40px;
+      font-family: var(--sans); font-size: 14px; font-weight: 600;
+      color: var(--white); letter-spacing: 0.5px;
+      background: var(--pink);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 999px;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hero-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,90,61,0.35); }
+
+    .hero-headline {
+      max-width: 800px; margin: 48px auto 16px;
+      font-family: var(--serif); font-size: 40px; font-weight: 500;
+      line-height: 1.25; color: var(--dark);
+    }
+    .hero-headline em { font-style: italic; color: var(--pink); }
+    .hero-photo-strip {
+      max-width: 1100px; margin: 0 auto;
+      border-radius: 12px; overflow: hidden;
+    }
+    .hero-strip-ph {
+      width: 100%; height: 100px;
+      background: linear-gradient(135deg, #F0EBE8, #E8E0DC);
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      color: var(--muted); font-size: 13px; font-weight: 500;
+    }
+    .hero-strip-ph .ph-sub { font-size: 11px; color: #bbb; margin-top: 4px; }
+    .hero-headline-2 {
+      max-width: 800px; margin: 16px auto 0;
+      font-family: var(--serif); font-size: 40px; font-weight: 500;
+      line-height: 1.25; color: var(--dark);
+      padding-bottom: 64px;
+    }
+    .hero-headline-2 em { font-style: italic; color: var(--pink); }
+
+    /* ===== TICKER ===== */
+    .ticker {
+      position: relative; z-index: 110;
+      background: var(--cream); padding: 14px 0; overflow: hidden; white-space: nowrap;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .ticker-track { display: inline-flex; animation: scroll 25s linear infinite; }
+    .ticker-item {
+      font-size: 11px; font-weight: 600; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--pink); padding: 0 48px;
+    }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ===== THREE CARDS ===== */
+    .cards-section {
+      padding: 72px 64px;
+    }
+    .cards-grid {
+      max-width: 840px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    }
+    .portal-card {
+      position: relative; border-radius: 0; overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #F0EBE8, #E5DEDA);
+      display: flex; align-items: flex-end; justify-content: center;
+      transition: transform 0.3s;
+    }
+    .portal-card:hover { transform: translateY(-4px); }
+    .portal-card-label {
+      position: relative; z-index: 1;
+      padding: 20px 24px 28px; text-align: center; width: 100%;
+      background: linear-gradient(transparent 0%, rgba(0,0,0,0.45) 100%);
+    }
+    .portal-card-title {
+      font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--white);
+    }
+
+    /* ===== ABOUT ===== */
+    .about {
+      padding: 96px 32px; background: var(--white);
+    }
+    .about-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .about-image {
+      border-radius: 20px; overflow: hidden;
+    }
+    .about-img-placeholder {
+      width: 100%; height: 560px;
+      background: linear-gradient(135deg, #F0EBE8, #E8E0DC);
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      color: var(--muted); font-size: 14px; font-weight: 500; border-radius: 20px;
+    }
+    .about-text { max-width: 100%; }
+    .about-greeting {
+      font-family: var(--serif); font-size: 42px; font-style: italic;
+      color: var(--pink); margin-bottom: 4px; font-weight: 400;
+    }
+    .about-name {
+      font-family: var(--serif); font-size: 48px; font-weight: 700;
+      color: var(--dark); margin-bottom: 32px; line-height: 1.1;
+    }
+    .about-body p {
+      font-size: 15px; color: var(--body); line-height: 1.85; margin-bottom: 20px;
+    }
+
+    /* ===== PULL QUOTE ===== */
+    .pull-quote {
+      padding: 72px 32px; background: var(--cream); text-align: center;
+    }
+    .pq-text {
+      font-family: var(--serif); font-size: 36px; font-style: italic;
+      font-weight: 400; color: var(--burgundy); max-width: 720px;
+      margin: 0 auto 16px; line-height: 1.35;
+    }
+    .pq-attr {
+      font-size: 14px; color: var(--muted); font-family: var(--sans);
+    }
+
+    /* ===== SOCIAL PROOF / IDENTITY ===== */
+    .identity {
+      padding: 96px 32px; background: var(--white); text-align: center;
+    }
+    .identity-eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--pink); margin-bottom: 20px;
+    }
+    .identity h2 {
+      font-family: var(--serif); font-size: 40px; font-weight: 600;
+      color: var(--dark); max-width: 700px; margin: 0 auto 40px; line-height: 1.25;
+    }
+    .identity-stats {
+      display: flex; justify-content: center; gap: 56px; flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .id-stat { text-align: center; }
+    .id-stat-num {
+      font-family: var(--serif); font-size: 40px; font-weight: 700; color: var(--dark);
+    }
+    .id-stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .identity-sub {
+      font-size: 16px; color: var(--body); max-width: 500px; margin: 0 auto 40px; line-height: 1.7;
+    }
+    .identity-cta {
+      display: inline-block; padding: 16px 44px;
+      font-family: var(--sans); font-size: 14px; font-weight: 600;
+      color: var(--white); background: var(--pink); border-radius: 999px;
+      transition: transform 0.2s, box-shadow 0.2s; letter-spacing: 0.3px;
+    }
+    .identity-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,90,61,0.3); }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      padding: 96px 32px; background: var(--cream); text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .final-cta h2 {
+      font-family: var(--serif); font-size: 44px; font-weight: 600;
+      color: var(--dark); max-width: 700px; margin: 0 auto 40px; line-height: 1.2;
+    }
+    .final-cta-btn {
+      display: inline-block; padding: 18px 52px;
+      background: var(--dark); color: var(--white);
+      font-family: var(--sans); font-size: 15px; font-weight: 600;
+      border-radius: 999px; letter-spacing: 0.3px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .final-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+    .final-cta-sub {
+      font-size: 13px; color: var(--muted); margin-top: 20px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 40px 32px; background: var(--white); text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 600px; margin: 0 auto;
+    }
+    .footer-logo {
+      font-family: var(--serif); font-size: 16px; font-weight: 600;
+      color: var(--dark); margin-bottom: 12px;
+    }
+    .footer-disclaimer {
+      font-size: 11px; color: #777; line-height: 1.6;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav { padding: 14px 20px; }
+      .nav-logo { font-size: 15px; }
+      .nav-link { font-size: 11px; padding: 7px 14px; }
+
+      .hero { padding: 100px 20px 0; }
+      .hero-label { font-size: 12px; letter-spacing: 2px; margin-bottom: 24px; }
+      .hero-img-placeholder { height: 360px; }
+      .hero-headline { font-size: 28px; margin-top: 32px; margin-bottom: 12px; }
+      .hero-headline-2 { font-size: 28px; padding-bottom: 48px; margin-top: 12px; }
+      .hero-strip-ph { height: 80px; }
+      .hero-cta-btn { font-size: 12px; padding: 12px 28px; }
+
+      .cards-section { padding: 48px 40px; }
+      .cards-grid { grid-template-columns: 1fr; gap: 16px; }
+      .portal-card { aspect-ratio: 1 / 1; }
+
+      .about { padding: 64px 20px; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-img-placeholder { height: 380px; }
+      .about-greeting { font-size: 32px; }
+      .about-name { font-size: 36px; }
+
+      .pq-text { font-size: 24px; }
+      .pull-quote { padding: 56px 20px; }
+
+      .identity { padding: 64px 20px; }
+      .identity h2 { font-size: 28px; }
+      .id-stat-num { font-size: 32px; }
+      .identity-stats { gap: 32px; }
+
+      .final-cta { padding: 64px 20px; }
+      .final-cta h2 { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">Sisterhood Trading Academy</span>
+      <a href="https://sisterhoodtrading.com/apply" class="nav-link">Join the Waitlist</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-label">The First Women-Only Day Trading Community</p>
+
+    <div class="hero-image-wrap">
+      <div class="hero-img-placeholder">
+        LEXI HERO IMAGE<br>
+        <span class="ph-sub">Wide lifestyle photo of Lexi. Trading setup, candid, or editorial style.</span>
+      </div>
+      <div class="hero-cta-overlay">
+        <a href="https://sisterhoodtrading.com/apply" class="hero-cta-btn">Join the Waitlist</a>
+      </div>
+    </div>
+
+    <h2 class="hero-headline">I built the trading community I <em>wished</em> existed when I was starting out.</h2>
+
+    <div class="hero-photo-strip">
+      <div class="hero-strip-ph">
+        [PLACEHOLDER: Thin wide lifestyle photo of Lexi -- editorial, candid, or trading setup aesthetic]
+        <span class="ph-sub">Wide cinematic crop, ~1100x140</span>
+      </div>
+    </div>
+
+    <h2 class="hero-headline-2">A space where women don't just learn to trade. They learn to <em>bet on themselves.</em></h2>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Women-Only Community</span>
+      <span class="ticker-item">Proprietary Strategy</span>
+      <span class="ticker-item">100+ Daily Setups</span>
+      <span class="ticker-item">Trade on Your Schedule</span>
+      <span class="ticker-item">Pre-Marked Charts Daily</span>
+      <span class="ticker-item">Women-Only Community</span>
+      <span class="ticker-item">Proprietary Strategy</span>
+      <span class="ticker-item">100+ Daily Setups</span>
+      <span class="ticker-item">Trade on Your Schedule</span>
+      <span class="ticker-item">Pre-Marked Charts Daily</span>
+    </div>
+  </div>
+
+  <!-- THREE CARDS -->
+  <section class="cards-section">
+    <div class="cards-grid">
+      <a href="https://sisterhoodtrading.com/apply" class="portal-card">
+        <div class="portal-card-label">
+          <div class="portal-card-title">Join the Waitlist</div>
+        </div>
+      </a>
+      <a href="#identity" class="portal-card">
+        <div class="portal-card-label">
+          <div class="portal-card-title">Community Wins</div>
+        </div>
+      </a>
+      <a href="#about" class="portal-card">
+        <div class="portal-card-label">
+          <div class="portal-card-title">Meet Lexi</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT LEXI -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-image">
+        <div class="about-img-placeholder">
+          LEXI PORTRAIT<br>
+          <span class="ph-sub">Warm, personal photo of Lexi</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="about-greeting">hey ladies,</p>
+        <p class="about-name">I'm Lexi.</p>
+        <div class="about-body">
+          <p>Three years ago, I was carrying golf bags for tips at a course in Florida. I knew that wasn't going to be my life forever. When I found trading, I went all in and lost money for a year straight.</p>
+          <p>I joined every community I could find. In almost all of them, I was the only woman in the room. I asked questions and got laughed at. I sat at my desk after bad sessions wondering if I was cut out for this.</p>
+          <p>I didn't quit. I got profitable. Then I spent six months building my own strategy from scratch, because nothing out there was built for someone like me. When I started sharing it online, hundreds of women sent me the same message: "I didn't think this was for someone like me."</p>
+          <p>I looked for a women-only trading community to send them to. It didn't exist. So I built one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="pull-quote">
+    <p class="pq-text">"I didn't think this was for someone like me."</p>
+    <p class="pq-attr">What hundreds of women told Lexi in her DMs</p>
+  </section>
+
+  <!-- IDENTITY / SOCIAL PROOF -->
+  <section class="identity" id="identity">
+    <p class="identity-eyebrow">The Sisterhood</p>
+    <h2>Join 600+ women who are rewriting their financial story.</h2>
+    <div class="identity-stats">
+      <div class="id-stat"><div class="id-stat-num">$40K</div><div class="id-stat-label">Single Withdrawal</div></div>
+      <div class="id-stat"><div class="id-stat-num">Daily</div><div class="id-stat-label">Live Trading</div></div>
+      <div class="id-stat"><div class="id-stat-num">600+</div><div class="id-stat-label">Community Members</div></div>
+    </div>
+    <p class="identity-sub">A community where women trade, support each other, share their wins, and prove that this industry was always ours too.</p>
+    <a href="https://sisterhoodtrading.com/apply" class="identity-cta">Join the Waitlist</a>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>The space you've been looking for is finally here.</h2>
+    <a href="https://sisterhoodtrading.com/apply" class="final-cta-btn">Join the Waitlist</a>
+    <p class="final-cta-sub">Limited founding cohort. Application takes 2 minutes.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-logo">Sisterhood Trading Academy</p>
+      <p class="footer-disclaimer">Trading involves substantial risk and is not suitable for everyone. Past performance is not indicative of future results. This program teaches a skill. Individual results vary based on account size, time commitment, and discipline.</p>
+    </div>
+  </footer>
+
+  <!-- NAV SCROLL BEHAVIOR -->
+  <script>
+    (function() {
+      var nav = document.querySelector('.nav');
+      var ticker = document.querySelector('.ticker');
+      var about = document.querySelector('.about');
+
+      if (!nav || !ticker || !about) return;
+
+      function onScroll() {
+        var tickerRect = ticker.getBoundingClientRect();
+        var aboutRect = about.getBoundingClientRect();
+
+        // Ticker is approaching or past the nav -> hide nav
+        // About section top is at or above viewport top -> show nav again
+        if (tickerRect.top <= 60 && aboutRect.top > 60) {
+          nav.classList.add('nav-hidden');
+        } else {
+          nav.classList.remove('nav-hidden');
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+
+  <!-- GHL viewport fix -->
+  <script>
+    (function() {
+      var sels = ['.body-wrapper','.hl_page-creator--content','.hl_page-preview--content','#preview-container','.container-fluid','.row','.inner-section','.section_wrapper','[class*="col-lg"]','[class*="col-md"]','[class*="col-sm"]','[class*="col-xs"]'];
+      sels.forEach(function(s){document.querySelectorAll(s).forEach(function(e){e.style.setProperty('max-width','100%','important');e.style.setProperty('width','100%','important');e.style.setProperty('padding','0','important');e.style.setProperty('margin','0','important');e.style.setProperty('float','none','important');e.style.setProperty('min-width','0','important');});});
+      var h=document.querySelector('.hero');if(h){var p=h.parentElement;while(p&&p!==document.body){p.style.setProperty('max-width','100%','important');p.style.setProperty('width','100%','important');p.style.setProperty('padding','0','important');p.style.setProperty('margin','0','important');p.style.setProperty('overflow-x','hidden','important');p=p.parentElement;}}
+      document.body.style.setProperty('overflow-x','hidden','important');
+      document.documentElement.style.setProperty('overflow-x','hidden','important');
+    })();
+  </script>
+</body>
+</html>
