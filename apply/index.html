@@ -1022,8 +1022,28 @@
   <!-- Inline multi-step form logic -->
   <script>
     (function(){
-      var SHEET_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxxQPiPzAOsLkoz1ZA6enQs2-T093OA51toURf4kF1zQ-l1qfUqi3pkWAS46B8Hfqa9/exec';
+      var SHEET_WEBHOOK = 'https://script.google.com/macros/s/AKfycbx-9499x7CGRbc2X46AP37l5Eq8D8Vx3w6Slu5tkJWk15KIH6iUx7SBWlzkx3-31sg6/exec';
       var partialSent = false; // only fire optin once
+
+      // POST to Google Apps Script via hidden iframe (avoids CORS/redirect issues)
+      function postToSheet(payload){
+        var iframe = document.createElement('iframe');
+        iframe.name = 'sf_post_' + Date.now();
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = SHEET_WEBHOOK;
+        form.target = iframe.name;
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'payload';
+        input.value = JSON.stringify(payload);
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+        setTimeout(function(){form.remove();iframe.remove();},5000);
+      }
       var TOTAL = 10;
       var cur = 0; // start on cover page (step 0)
       var data = {};
@@ -1074,7 +1094,7 @@
           investment_budget: ''
         };
         try {
-          navigator.sendBeacon(SHEET_WEBHOOK,JSON.stringify(payload));
+          postToSheet(payload);
         } catch(err){console.warn('Sheet webhook error:',err);}
       }
 
@@ -1223,7 +1243,7 @@
         };
 
         try {
-          navigator.sendBeacon(SHEET_WEBHOOK,JSON.stringify(payload));
+          postToSheet(payload);
         } catch(err){console.warn('Sheet webhook error:',err);}
 
         document.querySelector('.sf-step[data-sf="'+TOTAL+'"]').classList.remove('sf-active');
