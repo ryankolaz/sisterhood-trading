@@ -1076,8 +1076,10 @@
       function sendPartial(){
         if(partialSent) return;
         partialSent = true;
-        var phoneVal = data.phone || '';
-        if(phoneVal && !phoneVal.startsWith('+')) phoneVal = selectedCountryCode + ' ' + phoneVal;
+        // Read phone directly from input to ensure we have the latest value
+        var phoneEl = document.getElementById('sfPhoneInput');
+        var rawPhone = phoneEl ? phoneEl.value.trim() : '';
+        var phoneVal = rawPhone ? selectedCountryCode + ' ' + rawPhone : (data.phone || '');
         var parts = (data.full_name||'').split(' ');
         var payload = {
           status: 'Partial',
