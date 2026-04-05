@@ -1022,8 +1022,7 @@
   <!-- Inline multi-step form logic -->
   <script>
     (function(){
-      var GHL_OPTIN_WEBHOOK = 'YOUR_GHL_OPTIN_WEBHOOK_HERE';           // Partial submit → creates contact + opportunity in "Optins"
-      var GHL_COMPLETED_WEBHOOK = 'YOUR_GHL_COMPLETED_APP_WEBHOOK_HERE'; // Full submit → moves opportunity to "Completed App"
+      var SHEET_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxxQPiPzAOsLkoz1ZA6enQs2-T093OA51toURf4kF1zQ-l1qfUqi3pkWAS46B8Hfqa9/exec';
       var partialSent = false; // only fire optin once
       var TOTAL = 10;
       var cur = 0; // start on cover page (step 0)
@@ -1061,21 +1060,22 @@
         if(phoneVal && !phoneVal.startsWith('+')) phoneVal = selectedCountryCode + ' ' + phoneVal;
         var parts = (data.full_name||'').split(' ');
         var payload = {
+          status: 'Partial',
           firstName: parts[0]||'',
           lastName: parts.slice(1).join(' ')||'',
           email: data.email||'',
           phone: phoneVal,
-          source: 'STA Waitlist Application - Partial',
-          customField: {
-            goal: data.goal||'',
-            trading_experience: data.experience||'',
-            current_situation: data.situation||'',
-            time_available: data.time_available||''
-          }
+          goal: data.goal||'',
+          experience: data.experience||'',
+          situation: data.situation||'',
+          time_available: data.time_available||'',
+          why_good_fit: '',
+          monthly_income: '',
+          investment_budget: ''
         };
         try {
-          fetch(GHL_OPTIN_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),mode:'no-cors'});
-        } catch(err){console.warn('Partial webhook error:',err);}
+          fetch(SHEET_WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)});
+        } catch(err){console.warn('Sheet webhook error:',err);}
       }
 
       function goTo(n){
@@ -1208,25 +1208,23 @@
 
         var parts = (data.full_name||'').split(' ');
         var payload = {
+          status: 'Completed',
           firstName: parts[0]||'',
           lastName: parts.slice(1).join(' ')||'',
           email: data.email||'',
           phone: phoneVal,
-          source: 'STA Waitlist Application - Completed',
-          customField: {
-            goal: data.goal||'',
-            trading_experience: data.experience||'',
-            current_situation: data.situation||'',
-            time_available: data.time_available||'',
-            why_good_fit: data.why_good_fit||'',
-            monthly_income: data.monthly_income||'',
-            investment_budget: data.investment_budget||''
-          }
+          goal: data.goal||'',
+          experience: data.experience||'',
+          situation: data.situation||'',
+          time_available: data.time_available||'',
+          why_good_fit: data.why_good_fit||'',
+          monthly_income: data.monthly_income||'',
+          investment_budget: data.investment_budget||''
         };
 
         try {
-          await fetch(GHL_COMPLETED_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),mode:'no-cors'});
-        } catch(err){console.warn('Webhook error:',err);}
+          await fetch(SHEET_WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)});
+        } catch(err){console.warn('Sheet webhook error:',err);}
 
         document.querySelector('.sf-step[data-sf="'+TOTAL+'"]').classList.remove('sf-active');
         conf.classList.add('sf-active');
