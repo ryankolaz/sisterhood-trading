@@ -1163,8 +1163,12 @@
         if(currentEl) currentEl.classList.remove('sf-active');
         // Scroll form card back into view after keyboard dismisses
         setTimeout(function(){
-          formCard.scrollIntoView({behavior:'smooth',block:'start'});
-        },300);
+          var anchor = document.getElementById('apply-form');
+          var rect = anchor.getBoundingClientRect();
+          if(rect.top < 0 || rect.top > 200){
+            window.scrollTo({top: anchor.offsetTop - 100, behavior:'smooth'});
+          }
+        },350);
         // Keep shield up to block queued touch events
         setTimeout(function(){
           locked = false;
