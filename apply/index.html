@@ -1295,16 +1295,10 @@
         hideAllSteps();
         // Pre-fill GHL calendar with form data
         var parts = (data.full_name||'').split(' ');
-        var rawPhone = (data.phone||'').replace(/[^0-9+]/g,'');
         var calParams = new URLSearchParams({
           first_name: parts[0]||'',
           last_name: parts.slice(1).join(' ')||'',
-          name: data.full_name||'',
-          email: data.email||'',
-          phone: rawPhone,
-          contactPhone: rawPhone,
-          number: rawPhone,
-          Phone: rawPhone
+          email: data.email||''
         });
         var cal = document.getElementById('sfCalendar');
         cal.src = 'https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU?' + calParams.toString();
