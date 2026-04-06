@@ -292,6 +292,7 @@
       .problem-reframe h2{font-size:28px}
       .final-cta h2{font-size:30px}
       .sp-stats{gap:28px}
+      .sf-input,.sf-textarea,.sf-phone-input,.sf-country-search{font-size:16px!important}
     }
   </style>
 </head>
@@ -1298,8 +1299,12 @@
         var calParams = new URLSearchParams({
           first_name: parts[0]||'',
           last_name: parts.slice(1).join(' ')||'',
+          name: data.full_name||'',
           email: data.email||'',
-          phone: rawPhone
+          phone: rawPhone,
+          contactPhone: rawPhone,
+          number: rawPhone,
+          Phone: rawPhone
         });
         var cal = document.getElementById('sfCalendar');
         cal.src = 'https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU?' + calParams.toString();
