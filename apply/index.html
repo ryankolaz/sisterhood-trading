@@ -1067,18 +1067,16 @@
   <!-- Inline multi-step form logic -->
   <script>
     (function(){
-      // GHL Webhooks (replace PLACEHOLDER with your GHL workflow webhook URLs)
-      var GHL_PARTIAL_WEBHOOK = 'YOUR_GHL_PARTIAL_WEBHOOK_HERE';
-      var GHL_COMPLETED_WEBHOOK = 'YOUR_GHL_COMPLETED_WEBHOOK_HERE';
+      // n8n webhook — single URL, routing handled by n8n workflow
+      var N8N_WEBHOOK = 'https://ryankolaz.app.n8n.cloud/webhook/sta-application';
       var partialSent = false;
 
-      function sendToGHL(url, payload) {
-        fetch(url, {
+      function sendWebhook(payload) {
+        fetch(N8N_WEBHOOK, {
           method: 'POST',
-          mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
-        }).catch(function(err) { console.warn('GHL webhook error:', err); });
+        }).catch(function(err) { console.warn('Webhook error:', err); });
       }
 
       function buildPayload(status) {
@@ -1136,7 +1134,7 @@
         if(partialSent) return;
         partialSent = true;
         var payload = buildPayload('Partial');
-        sendToGHL(GHL_PARTIAL_WEBHOOK, payload);
+        sendWebhook(payload);
       }
 
       function goTo(n){
@@ -1285,7 +1283,7 @@
       function sfSubmitQualified(){
         if(!partialSent) sendPartial();
         var payload = buildPayload('Completed - Qualified');
-        sendToGHL(GHL_COMPLETED_WEBHOOK, payload);
+        sendWebhook(payload);
         hideAllSteps();
         document.querySelector('.sf-step[data-sf="12"]').classList.add('sf-active');
         progressWrap.style.display = 'none';
@@ -1295,7 +1293,7 @@
       function sfSubmitDisqualified(){
         if(!partialSent) sendPartial();
         var payload = buildPayload('Completed - Not Ready');
-        sendToGHL(GHL_COMPLETED_WEBHOOK, payload);
+        sendWebhook(payload);
         hideAllSteps();
         document.getElementById('sfConfDQ').classList.add('sf-active');
         progressWrap.style.display = 'none';
