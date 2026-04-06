@@ -472,7 +472,7 @@
               <div class="sf-conf-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <h3 style="font-family:var(--serif);font-size:20px;font-weight:600;color:var(--dark);margin-bottom:8px">You're in. Book your call.</h3>
               <p style="font-size:13px;color:var(--body);line-height:1.6;margin-bottom:16px">Your application has been accepted. Pick a time below to speak with a member of our team.</p>
-              <iframe src="https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU" style="width:100%;min-height:500px;border:none;border-radius:12px" scrolling="yes"></iframe>
+              <iframe id="sfCalendar" src="https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU" style="width:100%;min-height:500px;border:none;border-radius:12px" scrolling="yes"></iframe>
             </div>
           </div>
 
@@ -1292,6 +1292,16 @@
         locked = false;
         hideShield();
         hideAllSteps();
+        // Pre-fill GHL calendar with form data
+        var parts = (data.full_name||'').split(' ');
+        var calParams = new URLSearchParams({
+          first_name: parts[0]||'',
+          last_name: parts.slice(1).join(' ')||'',
+          email: data.email||'',
+          phone: data.phone||''
+        });
+        var cal = document.getElementById('sfCalendar');
+        cal.src = 'https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU?' + calParams.toString();
         document.querySelector('.sf-step[data-sf="12"]').classList.add('sf-active');
         progressWrap.style.display = 'none';
         footer.style.display = 'none';
