@@ -1141,6 +1141,8 @@
         if(locked) return;
         locked = true;
         showShield();
+        // Dismiss keyboard before transitioning
+        if(document.activeElement) document.activeElement.blur();
         // Fire partial submit when advancing past phone step
         if(cur === 7 && n > 7) sendPartial();
         var currentEl = document.querySelector('.sf-step[data-sf="'+cur+'"]');
@@ -1159,6 +1161,10 @@
         }
         // Remove old step after new one is visible
         if(currentEl) currentEl.classList.remove('sf-active');
+        // Scroll form card back into view after keyboard dismisses
+        setTimeout(function(){
+          formCard.scrollIntoView({behavior:'smooth',block:'start'});
+        },300);
         // Keep shield up to block queued touch events
         setTimeout(function(){
           locked = false;
