@@ -468,12 +468,11 @@
 
           <!-- Step 12: Book a Call (qualified applicants) -->
           <div class="sf-step" data-sf="12">
-            <div style="text-align:center;padding:12px 0">
+            <div style="text-align:center;padding:8px 0">
               <div class="sf-conf-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <h3 style="font-family:var(--serif);font-size:20px;font-weight:600;color:var(--dark);margin-bottom:8px">You're in. Let's talk.</h3>
-              <p style="font-size:13px;color:var(--body);line-height:1.6;margin-bottom:20px">Your application has been accepted. Book your enrollment call below to speak with a member of our team.</p>
-              <a href="https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU" target="_blank" class="sf-btn-next sf-btn-wide" style="text-decoration:none;display:inline-flex">Book Your Call <svg viewBox="0 0 24 24" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></a>
-              <p style="margin-top:16px;font-size:11px;color:var(--muted)">Pick a time that works for you. It's a 30-minute conversation, not a sales pitch.</p>
+              <h3 style="font-family:var(--serif);font-size:20px;font-weight:600;color:var(--dark);margin-bottom:8px">You're in. Book your call.</h3>
+              <p style="font-size:13px;color:var(--body);line-height:1.6;margin-bottom:16px">Your application has been accepted. Pick a time below to speak with a member of our team.</p>
+              <iframe src="https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU" style="width:100%;min-height:500px;border:none;border-radius:12px" scrolling="yes"></iframe>
             </div>
           </div>
 
@@ -1228,6 +1227,7 @@
       shield.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();});
 
       // Text inputs
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       document.querySelectorAll('.sf-input,.sf-textarea').forEach(function(inp){
         inp.addEventListener('input',function(){
           var field = this.dataset.sfField;
@@ -1237,7 +1237,12 @@
             data[field] = this.value.trim();
           }
           var btn = this.closest('.sf-step').querySelector('.sf-btn-next');
-          btn.disabled = !this.value.trim();
+          // Email validation
+          if(field === 'email'){
+            btn.disabled = !emailRegex.test(this.value.trim());
+          } else {
+            btn.disabled = !this.value.trim();
+          }
         });
       });
 
@@ -1284,6 +1289,8 @@
         if(!partialSent) sendPartial();
         var payload = buildPayload('Completed - Qualified');
         sendWebhook(payload);
+        locked = false;
+        hideShield();
         hideAllSteps();
         document.querySelector('.sf-step[data-sf="12"]').classList.add('sf-active');
         progressWrap.style.display = 'none';
@@ -1294,6 +1301,8 @@
         if(!partialSent) sendPartial();
         var payload = buildPayload('Completed - Not Ready');
         sendWebhook(payload);
+        locked = false;
+        hideShield();
         hideAllSteps();
         document.getElementById('sfConfDQ').classList.add('sf-active');
         progressWrap.style.display = 'none';
