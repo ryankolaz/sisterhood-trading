@@ -395,7 +395,8 @@
           <!-- Q5: Name -->
           <div class="sf-step" data-sf="5">
             <p class="sf-question">What is your name?</p>
-            <input type="text" class="sf-input" data-sf-field="full_name" placeholder="First and last name" autocomplete="name">
+            <input type="text" class="sf-input sf-name-input" data-sf-field="firstName" placeholder="First name" autocomplete="given-name" style="margin-bottom:12px">
+            <input type="text" class="sf-input sf-name-input" data-sf-field="lastName" placeholder="Last name" autocomplete="family-name">
             <div class="sf-nav"><button class="sf-btn-back" onclick="sfPrev()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button><button class="sf-btn-next" disabled onclick="sfNext()"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button></div>
           </div>
 
@@ -1093,11 +1094,10 @@
         if (phoneVal && !phoneVal.startsWith('+')) phoneVal = selectedCountryCode + ' ' + phoneVal;
         var phoneEl = document.getElementById('sfPhoneInput');
         if (phoneEl && phoneEl.value.trim()) phoneVal = selectedCountryCode + ' ' + phoneEl.value.trim();
-        var parts = (data.full_name || '').split(' ');
         return {
           status: status,
-          firstName: parts[0] || '',
-          lastName: parts.slice(1).join(' ') || '',
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
           email: data.email || '',
           phone: phoneVal,
           goal: data.goal || '',
@@ -1266,6 +1266,9 @@
           // Email validation
           if(field === 'email'){
             btn.disabled = !emailRegex.test(this.value.trim());
+          } else if(field === 'firstName' || field === 'lastName'){
+            // Both name fields must be filled
+            btn.disabled = !(data.firstName && data.lastName);
           } else {
             btn.disabled = !this.value.trim();
           }
@@ -1317,10 +1320,9 @@
         // Data already captured on Q10/Q11 answer — just navigate to calendar
         hideAllSteps();
         // Pre-fill GHL calendar with form data
-        var parts = (data.full_name||'').split(' ');
         var calParams = new URLSearchParams({
-          first_name: parts[0]||'',
-          last_name: parts.slice(1).join(' ')||'',
+          first_name: data.firstName||'',
+          last_name: data.lastName||'',
           email: data.email||''
         });
         var cal = document.getElementById('sfCalendar');
