@@ -113,7 +113,7 @@
     }
     .hero-img-placeholder .ph-sub { font-size: 11px; color: #bbb; margin-top: 4px; }
     .hero-cta-overlay {
-      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2;
     }
     .hero-cta-btn {
       display: inline-block; padding: 14px 40px;
@@ -236,6 +236,7 @@
     /* ===== SOCIAL PROOF / IDENTITY ===== */
     .identity {
       padding: 96px 32px; background: var(--white); text-align: center;
+      scroll-margin-top: 120px;
     }
     .identity-eyebrow {
       font-size: 12px; font-weight: 600; letter-spacing: 2px;
@@ -397,16 +398,19 @@
   <section class="cards-section">
     <div class="cards-grid">
       <a href="https://sisterhoodtrading.com/apply" class="portal-card">
+        <img src="/assets/card-waitlist.webp" alt="Join the Waitlist" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
         <div class="portal-card-label">
           <div class="portal-card-title">Join the Waitlist</div>
         </div>
       </a>
       <a href="#identity" class="portal-card">
+        <img src="/assets/card-wins.webp" alt="Community Wins" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
         <div class="portal-card-label">
-          <div class="portal-card-title">Community Wins</div>
+          <div class="portal-card-title">See the Community</div>
         </div>
       </a>
       <a href="#about" class="portal-card">
+        <img src="/assets/card-lexi.webp" alt="Meet Lexi" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
         <div class="portal-card-label">
           <div class="portal-card-title">Meet Lexi</div>
         </div>
@@ -451,6 +455,60 @@
       <div class="id-stat"><div class="id-stat-num">$40K</div><div class="id-stat-label">Single Withdrawal</div></div>
       <div class="id-stat"><div class="id-stat-num">Daily</div><div class="id-stat-label">Live Trading</div></div>
       <div class="id-stat"><div class="id-stat-num">600+</div><div class="id-stat-label">Community Members</div></div>
+    </div>
+    <div style="max-width:420px;margin:40px auto;text-align:left">
+      <div style="background:var(--cream);border-radius:16px;padding:0;overflow:hidden;border:1px solid #E3DED9">
+        <!-- Discord channel mockup -->
+        <div style="background:rgba(45,90,61,0.06);padding:10px 16px;display:flex;align-items:center;gap:8px">
+          <span style="width:8px;height:8px;border-radius:50%;background:#2D5A3D;display:inline-block"></span>
+          <span style="font-size:12px;font-weight:700;color:#2D5A3D">#wins</span>
+          <span style="font-size:10px;color:#999;margin-left:4px">Celebrate every green day</span>
+        </div>
+        <div style="height:1px;background:#E3DED9"></div>
+        <div style="padding:14px 16px;display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0ebe8">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(45,90,61,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <span style="font-size:11px;font-weight:600;color:#2D5A3D">S</span>
+            </div>
+            <div>
+              <p style="margin:0;line-height:1"><span style="font-size:11px;font-weight:700;color:var(--dark)">Stacy</span> <span style="font-size:9px;color:#999">today at 9:41 AM</span></p>
+              <p style="margin:4px 0 0;font-size:11px;color:var(--body);line-height:1.45">Green day! +$423 before lunch. The live session helped so much.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0ebe8">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(45,90,61,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <span style="font-size:11px;font-weight:600;color:#2D5A3D">L</span>
+            </div>
+            <div>
+              <p style="margin:0;line-height:1"><span style="font-size:11px;font-weight:700;color:var(--dark)">Lola Flo</span> <span style="font-size:9px;color:#999">today at 10:14 AM</span></p>
+              <p style="margin:4px 0 0;font-size:11px;color:var(--body);line-height:1.45">First week with the system. Already seeing setups I never would have found.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0ebe8">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(45,90,61,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <span style="font-size:11px;font-weight:600;color:#2D5A3D">D</span>
+            </div>
+            <div>
+              <p style="margin:0;line-height:1"><span style="font-size:11px;font-weight:700;color:var(--dark)">D</span> <span style="font-size:9px;color:#999">yesterday at 3:22 PM</span></p>
+              <p style="margin:4px 0 0;font-size:11px;color:var(--body);line-height:1.45">Made $4k following the live. This system is different fr.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;padding:10px 0">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(45,90,61,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <span style="font-size:11px;font-weight:600;color:#2D5A3D">B</span>
+            </div>
+            <div>
+              <p style="margin:0;line-height:1"><span style="font-size:11px;font-weight:700;color:var(--dark)">Beagle</span> <span style="font-size:9px;color:#999">just now</span></p>
+              <p style="margin:6px 0 0;display:flex;gap:3px">
+                <span style="width:5px;height:5px;border-radius:50%;background:rgba(45,90,61,0.25);display:inline-block"></span>
+                <span style="width:5px;height:5px;border-radius:50%;background:rgba(45,90,61,0.45);display:inline-block"></span>
+                <span style="width:5px;height:5px;border-radius:50%;background:rgba(45,90,61,0.7);display:inline-block"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:10px;color:var(--muted);padding:0 16px 14px;text-align:center">600+ women. Always on.</p>
+      </div>
     </div>
     <p class="identity-sub">A community where women trade, support each other, share their wins, and prove that this industry was always ours too.</p>
     <a href="https://sisterhoodtrading.com/apply" class="identity-cta">Join the Waitlist</a>
