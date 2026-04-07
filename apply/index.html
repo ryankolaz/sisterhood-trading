@@ -467,8 +467,17 @@
             <div class="sf-nav"><button class="sf-btn-back" onclick="sfPrev()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button><button class="sf-btn-next" disabled><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button></div>
           </div>
 
-          <!-- Step 12: Book a Call (qualified applicants) -->
+          <!-- Step 12: Submit Application (qualified applicants) -->
           <div class="sf-step" data-sf="12">
+            <div style="text-align:center;padding:24px 0">
+              <p class="sf-question">You qualify! Ready to submit your application?</p>
+              <p class="sf-sub" style="margin-bottom:24px">Once you submit, you'll be able to book a call with our team.</p>
+              <button class="sf-btn-submit" onclick="sfSubmitQualified()" style="display:inline-block;background:var(--green);color:#fff;border:none;padding:16px 48px;border-radius:50px;font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:0.5px;cursor:pointer;transition:background 0.2s">Submit Application</button>
+            </div>
+          </div>
+
+          <!-- Step 13: Book a Call (qualified applicants) -->
+          <div class="sf-step" data-sf="13">
             <div style="text-align:center;padding:8px 0">
               <div class="sf-conf-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <h3 style="font-family:var(--serif);font-size:20px;font-weight:600;color:var(--dark);margin-bottom:8px">You're in. Book your call.</h3>
@@ -539,7 +548,7 @@
         </ul>
       </div>
       <div>
-        <div class="img-ph" style="height:440px;position:relative;overflow:hidden">
+        <div class="img-ph" style="height:440px;position:relative;overflow:hidden;border:none">
           <img src="/assets/lifestyle-aspirational.webp" alt="Aspirational lifestyle" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1" onerror="this.style.display='none'">
           [PLACEHOLDER: Aspirational lifestyle image]
           <span class="ph-sub">Woman at laptop in a beautiful setting, coffee, freedom aesthetic</span>
@@ -611,7 +620,7 @@
     <p class="intro-name">Sisterhood Trading Academy</p>
     <p class="intro-tagline">The first all-female day trading community ever built.</p>
     <div class="intro-image">
-      <div class="img-ph" style="height:360px;position:relative;overflow:hidden">
+      <div class="img-ph" style="height:360px;position:relative;overflow:hidden;border:none">
         <img src="/assets/program-mockup.webp" alt="Sisterhood Trading Academy program" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1" onerror="this.style.display='none'">
         [PLACEHOLDER: Program mockup or brand image]
         <span class="ph-sub">Mockup showing the Discord, charts, course videos, or brand logo treatment</span>
@@ -958,7 +967,7 @@
         <p>I looked for a women-only trading community to send them to. It didn't exist. So I built one.</p>
       </div>
       <div>
-        <div class="img-ph" style="height:480px;position:sticky;top:100px;overflow:hidden">
+        <div class="img-ph" style="height:480px;position:sticky;top:100px;overflow:hidden;border:none">
           <img src="/assets/lexi-editorial.webp" alt="Lexi editorial portrait" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1" onerror="this.style.display='none'">
           [PLACEHOLDER: Lexi portrait, editorial style]
           <span class="ph-sub">Warm, personal, full-length or seated portrait of Lexi</span>
@@ -1211,13 +1220,13 @@
               if(data.investment_budget === '$0 - $1,000'){
                 goTo(11); // qualification gate
               } else {
-                sfSubmitQualified();
+                goTo(12); // submit application screen
               }
             }
             // Step 11: qualification gate routing
             else if(stepNum === 11){
               if(data.qualification_confirm === 'Yes'){
-                sfSubmitQualified();
+                goTo(12); // submit application screen
               } else {
                 sfSubmitDisqualified();
               }
@@ -1286,8 +1295,10 @@
         if(cur<=1) return;
         // From step 11, go back to 10
         if(cur === 11) { goTo(10); return; }
-        // Don't allow back from step 12 or confirmations (already submitted)
-        if(cur === 12) return;
+        // From step 12 (submit screen), go back to 10
+        if(cur === 12) { goTo(10); return; }
+        // Don't allow back from step 13 or confirmations (already submitted)
+        if(cur === 13) return;
         goTo(cur-1);
       };
 
@@ -1312,7 +1323,8 @@
         });
         var cal = document.getElementById('sfCalendar');
         cal.src = 'https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU?' + calParams.toString();
-        document.querySelector('.sf-step[data-sf="12"]').classList.add('sf-active');
+        document.querySelector('.sf-step[data-sf="12"]').classList.remove('sf-active');
+        document.querySelector('.sf-step[data-sf="13"]').classList.add('sf-active');
         progressWrap.style.display = 'none';
         footer.style.display = 'none';
       }
