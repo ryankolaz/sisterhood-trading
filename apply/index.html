@@ -1220,12 +1220,18 @@
               if(data.investment_budget === '$0 - $1,000'){
                 goTo(11); // qualification gate
               } else {
+                // Capture full application data now (before submit screen)
+                if(!partialSent) sendPartial();
+                sendWebhook(buildPayload('Completed - Qualified'));
                 goTo(12); // submit application screen
               }
             }
             // Step 11: qualification gate routing
             else if(stepNum === 11){
               if(data.qualification_confirm === 'Yes'){
+                // Capture full application data now (before submit screen)
+                if(!partialSent) sendPartial();
+                sendWebhook(buildPayload('Completed - Qualified'));
                 goTo(12); // submit application screen
               } else {
                 sfSubmitDisqualified();
@@ -1307,12 +1313,8 @@
         document.querySelectorAll('.sf-conf').forEach(function(s){s.classList.remove('sf-active')});
       }
 
-      function sfSubmitQualified(){
-        if(!partialSent) sendPartial();
-        var payload = buildPayload('Completed - Qualified');
-        sendWebhook(payload);
-        locked = false;
-        hideShield();
+      window.sfSubmitQualified = function(){
+        // Data already captured on Q10/Q11 answer — just navigate to calendar
         hideAllSteps();
         // Pre-fill GHL calendar with form data
         var parts = (data.full_name||'').split(' ');
