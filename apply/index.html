@@ -1333,9 +1333,6 @@
         cal.src = 'https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU?' + calParams.toString();
         document.querySelector('.sf-step[data-sf="12"]').classList.remove('sf-active');
         document.querySelector('.sf-step[data-sf="13"]').classList.add('sf-active');
-        // Keep form at top — prevent iframe load from scrolling page
-        var formAnchor = document.getElementById('apply-form');
-        window.scrollTo({top: formAnchor.offsetTop - 140, behavior:'smooth'});
         progressWrap.style.display = 'none';
         footer.style.display = 'none';
       }
