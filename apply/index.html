@@ -1170,14 +1170,16 @@
         }
         // Remove old step after new one is visible
         if(currentEl) currentEl.classList.remove('sf-active');
-        // Scroll form card back into view after keyboard dismisses
-        setTimeout(function(){
-          var anchor = document.getElementById('apply-form');
-          var rect = anchor.getBoundingClientRect();
-          if(rect.top < -10 || rect.top > 200){
-            window.scrollTo({top: anchor.offsetTop - 140, behavior:'smooth'});
-          }
-        },500);
+        // Scroll form card back into view after keyboard dismisses (skip on calendar step)
+        if(cur < 13){
+          setTimeout(function(){
+            var anchor = document.getElementById('apply-form');
+            var rect = anchor.getBoundingClientRect();
+            if(rect.top < -10 || rect.top > 200){
+              window.scrollTo({top: anchor.offsetTop - 140, behavior:'smooth'});
+            }
+          },500);
+        }
         // Keep shield up to block queued touch events
         setTimeout(function(){
           locked = false;
@@ -1331,6 +1333,9 @@
         cal.src = 'https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU?' + calParams.toString();
         document.querySelector('.sf-step[data-sf="12"]').classList.remove('sf-active');
         document.querySelector('.sf-step[data-sf="13"]').classList.add('sf-active');
+        // Keep form at top — prevent iframe load from scrolling page
+        var formAnchor = document.getElementById('apply-form');
+        window.scrollTo({top: formAnchor.offsetTop - 140, behavior:'smooth'});
         progressWrap.style.display = 'none';
         footer.style.display = 'none';
       }
