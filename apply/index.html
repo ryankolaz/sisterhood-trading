@@ -1124,7 +1124,7 @@
 
       function updateBar(){
         if(cur < 1) return;
-        bar.style.width = (cur/TOTAL*100)+'%';
+        bar.style.width = Math.min(cur/TOTAL*100, 100)+'%';
         // progress bar only, no label
       }
 
@@ -1229,6 +1229,8 @@
             // Step 11: qualification gate routing
             else if(stepNum === 11){
               if(data.qualification_confirm === 'Yes'){
+                // They confirmed $5K commitment — update budget to reflect that
+                data.investment_budget = '$5,000';
                 // Capture full application data now (before submit screen)
                 if(!partialSent) sendPartial();
                 sendWebhook(buildPayload('Completed - Qualified'));
