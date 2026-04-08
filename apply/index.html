@@ -1330,11 +1330,17 @@
           email: data.email||''
         });
         var cal = document.getElementById('sfCalendar');
+        // Freeze scroll position while iframe loads
+        var scrollY = window.scrollY;
+        var freezeScroll = function(){ window.scrollTo(0, scrollY); };
+        window.addEventListener('scroll', freezeScroll);
         cal.src = 'https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU?' + calParams.toString();
         document.querySelector('.sf-step[data-sf="12"]').classList.remove('sf-active');
         document.querySelector('.sf-step[data-sf="13"]').classList.add('sf-active');
         progressWrap.style.display = 'none';
         footer.style.display = 'none';
+        // Release scroll freeze after iframe settles
+        setTimeout(function(){ window.removeEventListener('scroll', freezeScroll); }, 2000);
       }
 
       function sfSubmitDisqualified(){
