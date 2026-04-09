@@ -91,66 +91,83 @@
     }
     .nav-link:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(45,90,61,0.3); }
 
-    /* ===== HERO ===== */
-    .hero {
-      padding-top: 140px; padding-left: 32px; padding-right: 32px; padding-bottom: 0;
-      text-align: center;
+    /* ===== HERO (full-bleed photo) ===== */
+    .hero-fullbleed {
+      position: relative; width: 100%; min-height: 100vh;
+      display: flex; align-items: flex-end; justify-content: center;
+      overflow: hidden; margin-top: 0;
     }
-    .hero-label {
-      font-family: var(--sans); font-size: 16px; font-weight: 600;
-      letter-spacing: 3px; text-transform: uppercase; color: var(--pink);
-      margin-bottom: 40px;
+    .hero-fullbleed img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0;
     }
-    .hero-image-wrap {
-      position: relative; max-width: 1100px; margin: 0 auto;
-      border-radius: 20px; overflow: hidden;
+    .hero-gradient {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 45%;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.45) 50%, transparent 100%);
+      z-index: 1;
     }
-    .hero-img-placeholder {
-      width: 100%; height: 520px;
-      background: linear-gradient(135deg, #F0EBE8, #E8E0DC);
-      display: flex; align-items: center; justify-content: center; flex-direction: column;
-      color: var(--muted); font-size: 14px; font-weight: 500;
+    .hero-text {
+      position: relative; z-index: 2; text-align: center;
+      padding: 0 32px 48px; max-width: 800px; width: 100%;
     }
-    .hero-img-placeholder .ph-sub { font-size: 11px; color: #bbb; margin-top: 4px; }
-    .hero-cta-overlay {
-      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2;
+    .hero-eyebrow {
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); margin-bottom: 14px;
+    }
+    .hero-h1 {
+      font-family: var(--serif); font-size: 48px; font-weight: 600;
+      line-height: 1.15; color: var(--white); margin-bottom: 6px;
+    }
+    .hero-h1 em {
+      font-style: italic; color: var(--pink-light);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    }
+    .hero-sub {
+      font-family: var(--sans); font-size: 14px; line-height: 1.6;
+      color: rgba(255,255,255,0.6); margin-bottom: 24px; max-width: 520px;
+      margin-left: auto; margin-right: auto;
     }
     .hero-cta-btn {
       display: inline-block; padding: 14px 40px;
       font-family: var(--sans); font-size: 14px; font-weight: 600;
-      color: var(--white); letter-spacing: 0.5px;
-      background: var(--pink);
-      border: 1.5px solid rgba(255,255,255,0.3);
-      border-radius: 999px;
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      color: var(--dark); letter-spacing: 0.5px;
+      background: var(--white); border-radius: 999px;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .hero-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,90,61,0.35); }
+    .hero-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.25); }
+    .hero-note {
+      font-family: var(--sans); font-size: 12px;
+      color: rgba(255,255,255,0.35); margin-top: 12px;
+    }
 
-    .hero-headline {
-      max-width: 800px; margin: 48px auto 16px;
+    /* ===== STATEMENT SECTION (below hero) ===== */
+    .statement {
+      padding: 48px 32px 64px; text-align: center;
+    }
+    .statement-headline {
+      max-width: 800px; margin: 0 auto 16px;
       font-family: var(--serif); font-size: 40px; font-weight: 500;
       line-height: 1.25; color: var(--dark);
     }
-    .hero-headline em { font-style: italic; color: var(--pink); }
-    .hero-photo-strip {
+    .statement-headline em { font-style: italic; color: var(--pink); }
+    .statement-strip {
       max-width: 1100px; margin: 0 auto;
       border-radius: 12px; overflow: hidden;
     }
-    .hero-strip-ph {
+    .statement-strip-ph {
       width: 100%; height: 100px;
       background: linear-gradient(135deg, #F0EBE8, #E8E0DC);
       display: flex; align-items: center; justify-content: center; flex-direction: column;
       color: var(--muted); font-size: 13px; font-weight: 500;
     }
-    .hero-strip-ph .ph-sub { font-size: 11px; color: #bbb; margin-top: 4px; }
-    .hero-headline-2 {
+    .statement-strip-ph .ph-sub { font-size: 11px; color: #bbb; margin-top: 4px; }
+    .statement-headline-2 {
       max-width: 800px; margin: 16px auto 0;
       font-family: var(--serif); font-size: 40px; font-weight: 500;
       line-height: 1.25; color: var(--dark);
-      padding-bottom: 64px;
     }
-    .hero-headline-2 em { font-style: italic; color: var(--pink); }
+    .statement-headline-2 em { font-style: italic; color: var(--pink); }
 
     /* ===== TICKER ===== */
     .ticker {
@@ -309,13 +326,18 @@
       .nav-logo { font-size: 15px; }
       .nav-link { font-size: 11px; padding: 7px 14px; }
 
-      .hero { padding: 100px 20px 0; }
-      .hero-label { font-size: 12px; letter-spacing: 2px; margin-bottom: 24px; }
-      .hero-img-placeholder { height: 360px; }
-      .hero-headline { font-size: 28px; margin-top: 32px; margin-bottom: 12px; }
-      .hero-headline-2 { font-size: 28px; padding-bottom: 48px; margin-top: 12px; }
-      .hero-strip-ph { height: 80px; }
+      .hero-fullbleed { min-height: 85vh; }
+      .hero-text { padding: 0 20px 36px; }
+      .hero-eyebrow { font-size: 10px; letter-spacing: 2px; }
+      .hero-h1 { font-size: 32px; }
+      .hero-sub { font-size: 13px; }
       .hero-cta-btn { font-size: 12px; padding: 12px 28px; }
+      .hero-note { font-size: 11px; }
+
+      .statement { padding: 36px 20px 48px; }
+      .statement-headline { font-size: 22px; margin-bottom: 10px; }
+      .statement-headline-2 { font-size: 22px; }
+      .statement-strip-ph { height: 80px; }
 
       .cards-section { padding: 48px 40px; }
       .cards-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -350,32 +372,32 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <p class="hero-label">The First Women-Only Day Trading Community</p>
-
-    <div class="hero-image-wrap">
-      <div class="hero-img-placeholder" style="position:relative;overflow:hidden">
-        <img src="/assets/hero-main.webp" alt="Lexi - Sisterhood Trading Academy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1" onerror="this.style.display='none'">
-        LEXI HERO IMAGE<br>
-        <span class="ph-sub">Wide lifestyle photo of Lexi. Trading setup, candid, or editorial style.</span>
-      </div>
-      <div class="hero-cta-overlay">
-        <a href="https://sisterhoodtrading.com/apply" class="hero-cta-btn">Join the Waitlist</a>
-      </div>
+  <!-- HERO (full-bleed photo) -->
+  <section class="hero-fullbleed">
+    <img src="/assets/hero-main.webp" alt="Lexi - Sisterhood Trading Academy">
+    <div class="hero-gradient"></div>
+    <div class="hero-text">
+      <p class="hero-eyebrow">The First Women-Only Day Trading Community</p>
+      <h1 class="hero-h1">You were never the problem. <em>The industry was.</em></h1>
+      <p class="hero-sub">The first women-only day trading community ever built. 600+ women. A proprietary system. Daily live trading. The first of its kind.</p>
+      <a href="https://sisterhoodtrading.com/apply" class="hero-cta-btn">Join the Waitlist</a>
+      <p class="hero-note">600+ women already inside</p>
     </div>
+  </section>
 
-    <h2 class="hero-headline">I built the trading community I <em>wished</em> existed when I was starting out.</h2>
+  <!-- STATEMENT -->
+  <section class="statement">
+    <h2 class="statement-headline">I built the trading community I <em>wished</em> existed when I was starting out.</h2>
 
-    <div class="hero-photo-strip">
-      <div class="hero-strip-ph" style="position:relative;overflow:hidden">
+    <div class="statement-strip">
+      <div class="statement-strip-ph" style="position:relative;overflow:hidden">
         <img src="/assets/hero-strip.webp" alt="Lexi lifestyle banner" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1" onerror="this.style.display='none'">
         [PLACEHOLDER: Thin wide lifestyle photo of Lexi -- editorial, candid, or trading setup aesthetic]
         <span class="ph-sub">Wide cinematic crop, ~1100x140</span>
       </div>
     </div>
 
-    <h2 class="hero-headline-2">A space where women don't just learn to trade. They learn to <em>bet on themselves.</em></h2>
+    <h2 class="statement-headline-2">A space where women don't just learn to trade. They learn to <em>bet on themselves.</em></h2>
   </section>
 
   <!-- TICKER -->
@@ -561,7 +583,7 @@
     (function() {
       var sels = ['.body-wrapper','.hl_page-creator--content','.hl_page-preview--content','#preview-container','.container-fluid','.row','.inner-section','.section_wrapper','[class*="col-lg"]','[class*="col-md"]','[class*="col-sm"]','[class*="col-xs"]'];
       sels.forEach(function(s){document.querySelectorAll(s).forEach(function(e){e.style.setProperty('max-width','100%','important');e.style.setProperty('width','100%','important');e.style.setProperty('padding','0','important');e.style.setProperty('margin','0','important');e.style.setProperty('float','none','important');e.style.setProperty('min-width','0','important');});});
-      var h=document.querySelector('.hero');if(h){var p=h.parentElement;while(p&&p!==document.body){p.style.setProperty('max-width','100%','important');p.style.setProperty('width','100%','important');p.style.setProperty('padding','0','important');p.style.setProperty('margin','0','important');p.style.setProperty('overflow-x','hidden','important');p=p.parentElement;}}
+      var h=document.querySelector('.hero-fullbleed');if(h){var p=h.parentElement;while(p&&p!==document.body){p.style.setProperty('max-width','100%','important');p.style.setProperty('width','100%','important');p.style.setProperty('padding','0','important');p.style.setProperty('margin','0','important');p.style.setProperty('overflow-x','hidden','important');p=p.parentElement;}}
       document.body.style.setProperty('overflow-x','hidden','important');
       document.documentElement.style.setProperty('overflow-x','hidden','important');
     })();
