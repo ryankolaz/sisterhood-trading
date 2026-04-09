@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Book a Call | Sisterhood Trading Academy</title>
+  <meta property="og:title" content="Book a Call | Sisterhood Trading Academy">
+  <meta property="og:site_name" content="Sisterhood Trading Academy">
+  <meta property="og:description" content="Schedule a call with our team to learn more about the Sisterhood.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body { background: #fff !important; }
+    html { overflow-x: hidden; scroll-behavior: smooth; }
+    body { overflow-x: hidden; min-width: 0 !important; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --pink: #2D5A3D;
+      --pink-light: #5A8A6A;
+      --blush: #F2EEEA;
+      --cream: #F7F4F1;
+      --dark: #1A1A1A;
+      --body: #555;
+      --muted: #999;
+      --border: #E3DED9;
+      --white: #fff;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; }
+    a { color: inherit; text-decoration: none; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 32px;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 18px; font-weight: 600;
+      color: var(--dark); letter-spacing: -0.3px;
+    }
+    .nav-link {
+      font-family: var(--sans); font-size: 13px; font-weight: 600;
+      color: var(--white); letter-spacing: 0.3px;
+      padding: 8px 20px; background: var(--pink); border-radius: 999px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-link:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(45,90,61,0.3); }
+
+    /* ===== PAGE ===== */
+    .page {
+      padding-top: 120px;
+      padding-bottom: 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+    }
+
+    .page-label {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 16px;
+    }
+
+    .page-headline {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+
+    .page-headline em {
+      font-style: italic;
+      color: var(--pink);
+    }
+
+    .page-sub {
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--body);
+      line-height: 1.7;
+    }
+
+    /* ===== CALENDAR CARD ===== */
+    .calendar-card {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .calendar-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+
+    .calendar-wrap iframe {
+      width: 100%;
+      min-height: 680px;
+      border: none;
+      display: block;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      text-align: center;
+      padding: 40px 24px 32px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer-text {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .footer-link {
+      color: var(--pink);
+      font-weight: 500;
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 600px) {
+      .nav { padding: 14px 20px; }
+      .nav-logo { font-size: 16px; }
+      .nav-link { font-size: 12px; padding: 7px 16px; }
+      .page { padding-top: 100px; padding-bottom: 60px; }
+      .page-headline { font-size: 28px; }
+      .page-sub { font-size: 14px; }
+      .calendar-wrap iframe { min-height: 600px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Sisterhood Trading Academy</a>
+      <a href="/apply" class="nav-link">Apply Now</a>
+    </div>
+  </nav>
+
+  <!-- PAGE -->
+  <div class="page">
+    <div class="page-header">
+      <p class="page-label">Sisterhood Trading Academy</p>
+      <h1 class="page-headline">Pick a time to <em>connect</em></h1>
+      <p class="page-sub">Choose a time that works for you and a member of our team will walk you through everything you need to know about the Sisterhood.</p>
+    </div>
+
+    <div class="calendar-card">
+      <div class="calendar-wrap">
+        <iframe src="https://api.leadconnectorhq.com/widget/booking/c43fsCyk3AGodsrqhXTU" scrolling="no" id="c43fsCyk3AGodsrqhXTU_1775771206803"></iframe>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p class="footer-text">Not ready to book? <a href="/apply" class="footer-link">Fill out an application</a> and we'll reach out when you're ready.</p>
+    </div>
+  </div>
+
+  <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+</body>
+</html>
