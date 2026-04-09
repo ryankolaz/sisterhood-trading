@@ -4,7 +4,7 @@ const DISCORD_WEBHOOK_CHANNEL = 'https://discord.com/api/v10/channels/1490903807
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 const SALES_ROLE_ID = '1490903807247515762';
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
