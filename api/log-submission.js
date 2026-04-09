@@ -1,6 +1,6 @@
 const SUPABASE_URL = 'https://esznwafyevspurzejavi.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
-const DISCORD_WEBHOOK_CHANNEL = 'https://discord.com/api/v10/channels/1490903807842979990/messages';
+const DISCORD_WEBHOOK_CHANNEL = 'https://discord.com/api/v10/channels/1491880016680714260/messages';
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 const SALES_ROLE_ID = '1490903807247515762';
 
