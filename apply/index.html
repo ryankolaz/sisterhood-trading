@@ -1081,12 +1081,29 @@
       var N8N_WEBHOOK = 'https://ryankolaz.app.n8n.cloud/webhook/sta-application';
       var partialSent = false;
 
+      var SUPABASE_LOG = '/api/log-submission';
+
       function sendWebhook(payload) {
         fetch(N8N_WEBHOOK, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
-        }).catch(function(err) { console.warn('Webhook error:', err); });
+        }).then(function(res) {
+          if (!res.ok) throw new Error('n8n returned ' + res.status);
+          logToSupabase(payload, 'delivered', null);
+        }).catch(function(err) {
+          console.warn('Webhook error:', err);
+          logToSupabase(payload, 'failed', err.message || 'Unknown error');
+        });
+      }
+
+      function logToSupabase(payload, n8nStatus, n8nError) {
+        var logData = Object.assign({}, payload, { n8n_status: n8nStatus, n8n_error: n8nError });
+        fetch(SUPABASE_LOG, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(logData)
+        }).catch(function(err) { console.warn('Supabase log error:', err); });
       }
 
       function buildPayload(status) {
