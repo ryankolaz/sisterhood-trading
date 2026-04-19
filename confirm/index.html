@@ -207,15 +207,10 @@
       <p style="text-align:center"><span class="watch-banner-label">Watch this before your call</span></p>
       <h2 class="video-headline">A quick message from Lexi before we <em>talk.</em></h2>
       <div class="video-wrap">
-        <!-- Replace this placeholder with Vimeo/Loom/YouTube iframe when video is recorded.
-             Example: <iframe src="https://player.vimeo.com/video/XXXXXXXXX" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> -->
-        <div class="video-placeholder" id="videoPlaceholder">
-          <img src="/assets/lexi-editorial.webp" alt="Lexi" onerror="this.style.display='none'">
-          <div class="video-play">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <p class="video-caption">"I want to prepare you for something. Between right now and your call, the old voice is going to show up..."</p>
-        </div>
+        <video controls preload="metadata" playsinline poster="/assets/lexi-editorial.webp" style="background:#000">
+          <source src="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69e5596838381eafa8a56338.mov" type="video/mp4">
+          Your browser can't play this video. <a href="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69e5596838381eafa8a56338.mov" style="color:#fff">Download it here</a>.
+        </video>
       </div>
       <p class="video-note">Three and a half minutes. Watch it before anything else.</p>
     </div>
@@ -319,18 +314,6 @@
       <p class="footer-disclaimer">Trading involves substantial risk and is not suitable for everyone. Past performance is not indicative of future results. This program teaches a skill. Individual results vary based on account size, time commitment, and discipline.</p>
     </div>
   </footer>
-
-  <!-- Placeholder click hint (no-op until video is embedded) -->
-  <script>
-    (function(){
-      var ph = document.getElementById('videoPlaceholder');
-      if(!ph) return;
-      ph.addEventListener('click', function(){
-        // When video URL is ready, replace the placeholder with:
-        // ph.outerHTML = '<iframe src="https://player.vimeo.com/video/XXXXXXXXX?autoplay=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-      });
-    })();
-  </script>
 
   <!-- GHL viewport fix -->
   <script>
