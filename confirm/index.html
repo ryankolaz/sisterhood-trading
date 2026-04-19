@@ -68,6 +68,10 @@
     .video-headline em{font-style:italic;color:var(--pink)}
     .video-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#0a0a0a;box-shadow:0 20px 60px rgba(0,0,0,0.18)}
     .video-wrap iframe,.video-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .unmute-btn{position:absolute;top:16px;right:16px;z-index:3;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:rgba(45,90,61,0.95);color:var(--white);border:none;border-radius:999px;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:0.3px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.25);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:transform 0.2s,box-shadow 0.2s,opacity 0.3s;animation:pulseBtn 2s ease-in-out infinite}
+    .unmute-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(0,0,0,0.3)}
+    .unmute-btn.hidden{opacity:0;pointer-events:none}
+    @keyframes pulseBtn{0%,100%{box-shadow:0 6px 20px rgba(0,0,0,0.25)}50%{box-shadow:0 6px 24px rgba(45,90,61,0.55)}}
     .video-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;background:linear-gradient(135deg,#1a1a1a,#2a3a2a);color:rgba(255,255,255,0.85);cursor:pointer;transition:transform 0.3s}
     .video-placeholder:hover{transform:scale(1.01)}
     .video-placeholder img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.55}
@@ -151,6 +155,7 @@
       .video-section{padding:12px 20px 64px}
       .video-headline{font-size:24px;margin:12px auto 20px}
       .video-wrap{border-radius:14px}
+      .unmute-btn{top:10px;right:10px;padding:8px 14px;font-size:12px}
       .video-play{width:64px;height:64px}
       .video-play svg{width:22px;height:22px}
       .video-caption{font-size:16px}
@@ -207,12 +212,16 @@
       <p style="text-align:center"><span class="watch-banner-label">Watch this before your call</span></p>
       <h2 class="video-headline">A quick message from Lexi before we <em>talk.</em></h2>
       <div class="video-wrap">
-        <video controls preload="metadata" playsinline poster="/assets/lexi-editorial.webp" style="background:#000">
+        <video id="confirmVideo" controls playsinline muted preload="auto" style="background:#000">
           <source src="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69e5596838381eafa8a56338.mov" type="video/mp4">
           Your browser can't play this video. <a href="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69e5596838381eafa8a56338.mov" style="color:#fff">Download it here</a>.
         </video>
+        <button id="unmuteBtn" class="unmute-btn" type="button" aria-label="Unmute video">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+          <span>Tap to unmute</span>
+        </button>
       </div>
-      <p class="video-note">Three and a half minutes. Watch it before anything else.</p>
+      <p class="video-note">Four minutes. Watch it before anything else.</p>
     </div>
   </section>
 
@@ -314,6 +323,49 @@
       <p class="footer-disclaimer">Trading involves substantial risk and is not suitable for everyone. Past performance is not indicative of future results. This program teaches a skill. Individual results vary based on account size, time commitment, and discipline.</p>
     </div>
   </footer>
+
+  <!-- Video: delayed muted autoplay + tap-to-unmute -->
+  <script>
+    (function(){
+      var v = document.getElementById('confirmVideo');
+      var btn = document.getElementById('unmuteBtn');
+      if(!v) return;
+
+      var started = false;
+      function startMuted(){
+        if(started) return; started = true;
+        v.muted = true;
+        var p = v.play();
+        if(p && typeof p.catch === 'function'){
+          p.catch(function(){ /* autoplay blocked — user can still press play */ });
+        }
+      }
+
+      // Kick off muted autoplay 2s after load
+      window.addEventListener('load', function(){
+        setTimeout(startMuted, 2000);
+      });
+
+      // Unmute on first interaction
+      if(btn){
+        btn.addEventListener('click', function(){
+          v.muted = false;
+          v.volume = 1;
+          if(v.paused) v.play();
+          btn.classList.add('hidden');
+          setTimeout(function(){ btn.remove(); }, 400);
+        });
+      }
+
+      // Hide button if they unmute via native controls
+      v.addEventListener('volumechange', function(){
+        if(!v.muted && btn && !btn.classList.contains('hidden')){
+          btn.classList.add('hidden');
+          setTimeout(function(){ btn.remove(); }, 400);
+        }
+      });
+    })();
+  </script>
 
   <!-- GHL viewport fix -->
   <script>
