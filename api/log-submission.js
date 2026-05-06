@@ -32,7 +32,6 @@ module.exports = async function handler(req, res) {
       goal: data.goal || null,
       experience: data.experience || null,
       situation: data.situation || null,
-      time_available: data.time_available || null,
       why_good_fit: data.why_good_fit || null,
       monthly_income: data.monthly_income || null,
       investment_budget: data.investment_budget || null,
