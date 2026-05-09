@@ -87,7 +87,7 @@
     .next-headline{text-align:center;font-family:var(--serif);font-size:40px;font-weight:600;color:var(--dark);line-height:1.2;margin-bottom:56px;max-width:620px;margin-left:auto;margin-right:auto}
     .next-headline em{font-style:italic;color:var(--pink)}
 
-    .next-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .next-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px}
     .next-step{background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;transition:transform 0.3s,box-shadow 0.3s}
     .next-step:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(45,90,61,0.08)}
     .next-step-num{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--pink);margin-bottom:12px}
@@ -108,6 +108,21 @@
     .bring-list li:last-child{border-bottom:none}
     .bring-list .check{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;margin-top:2px}
     .bring-list .check svg{width:11px;height:11px;stroke:var(--white);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+    /* ===== PRE-CALL VIDEOS ===== */
+    .precall{padding:96px 32px;background:var(--white);border-top:1px solid var(--border)}
+    .precall-inner{max-width:840px;margin:0 auto}
+    .precall-eyebrow{text-align:center;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:18px}
+    .precall-headline{text-align:center;font-family:var(--serif);font-size:40px;font-weight:600;color:var(--dark);line-height:1.2;margin-bottom:18px}
+    .precall-headline em{font-style:italic;color:var(--pink)}
+    .precall-sub{text-align:center;font-size:16px;color:var(--body);line-height:1.75;margin-bottom:56px;max-width:620px;margin-left:auto;margin-right:auto}
+    .precall-list{display:flex;flex-direction:column;gap:48px}
+    .precall-num{font-family:var(--serif);font-size:18px;font-style:italic;color:var(--pink);margin-bottom:6px;letter-spacing:0.3px}
+    .precall-title{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--dark);line-height:1.3;margin-bottom:8px}
+    .precall-title em{font-style:italic;color:var(--pink)}
+    .precall-meta{font-size:14px;color:var(--body);line-height:1.6;margin-bottom:18px}
+    .precall-video{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#0a0a0a;box-shadow:0 12px 40px rgba(0,0,0,0.12)}
+    .precall-video video{position:absolute;inset:0;width:100%;height:100%;border:0}
 
     /* ===== COACHING / BELIEF BREAK ===== */
     .coach{padding:96px 32px;background:var(--white)}
@@ -170,6 +185,13 @@
       .bring-inner{grid-template-columns:1fr;gap:32px}
       .bring-image{aspect-ratio:4/5;max-height:420px}
       .bring-headline{font-size:28px}
+
+      .precall{padding:64px 20px}
+      .precall-headline{font-size:28px}
+      .precall-sub{font-size:15px;margin-bottom:36px}
+      .precall-list{gap:36px}
+      .precall-title{font-size:22px}
+      .precall-video{border-radius:12px}
 
       .coach{padding:64px 20px}
       .coach-headline{font-size:28px}
@@ -246,6 +268,11 @@
           <h3 class="next-step-title">Bring every question</h3>
           <p class="next-step-body">This is a real conversation, not a high-pressure sales call. Show up with your doubts and your questions — all of them.</p>
         </div>
+        <div class="next-step">
+          <p class="next-step-num">04</p>
+          <h3 class="next-step-title">Watch all four videos</h3>
+          <p class="next-step-body">Lexi recorded four short videos walking you through everything before the call. About twelve minutes total. Watch them in order so the call can be about you.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -278,6 +305,65 @@
             <span>Any question or doubt you have about the community</span>
           </li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRE-CALL VIDEOS -->
+  <section class="precall">
+    <div class="precall-inner">
+      <p class="precall-eyebrow">Pre-Call Videos</p>
+      <h2 class="precall-headline">Four videos to watch before your <em>call.</em></h2>
+      <p class="precall-sub">About twelve minutes in total. By the time you and Lexi sit down together, you'll already know whether this is right for you. Watch them in order.</p>
+
+      <div class="precall-list">
+        <div class="precall-item">
+          <p class="precall-num">Video 01</p>
+          <h3 class="precall-title">Before we <em>talk.</em></h3>
+          <p class="precall-meta">~90 seconds. A quick hello from Lexi and what the next three videos are about.</p>
+          <div class="precall-video">
+            <video controls playsinline preload="metadata" style="background:#000">
+              <source src="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69fe7ff325c3d6001abb833f.mov" type="video/mp4">
+              Your browser can't play this video. <a href="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69fe7ff325c3d6001abb833f.mov" style="color:#fff">Download it here</a>.
+            </video>
+          </div>
+        </div>
+
+        <div class="precall-item">
+          <p class="precall-num">Video 02</p>
+          <h3 class="precall-title">I couldn't find her, so I <em>became her.</em></h3>
+          <p class="precall-meta">4 to 5 minutes. How Lexi got here, and the voice every woman in this program had to fight to stay.</p>
+          <div class="precall-video">
+            <video controls playsinline preload="metadata" style="background:#000">
+              <source src="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69fe7ff369827469821759a2.mov" type="video/mp4">
+              Your browser can't play this video. <a href="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69fe7ff369827469821759a2.mov" style="color:#fff">Download it here</a>.
+            </video>
+          </div>
+        </div>
+
+        <div class="precall-item">
+          <p class="precall-num">Video 03</p>
+          <h3 class="precall-title">What the system <em>actually is.</em></h3>
+          <p class="precall-meta">4 to 5 minutes. The 4-Confluence System and why it's different from anything you've already tried.</p>
+          <div class="precall-video">
+            <video controls playsinline preload="metadata" style="background:#000">
+              <source src="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69fe7ff4bc1f77cc35176565.mov" type="video/mp4">
+              Your browser can't play this video. <a href="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69fe7ff4bc1f77cc35176565.mov" style="color:#fff">Download it here</a>.
+            </video>
+          </div>
+        </div>
+
+        <div class="precall-item">
+          <p class="precall-num">Video 04</p>
+          <h3 class="precall-title">Who you're <em>becoming.</em></h3>
+          <p class="precall-meta">3 to 4 minutes. What it actually looks like to be inside the Sisterhood.</p>
+          <div class="precall-video">
+            <video controls playsinline preload="metadata" style="background:#000">
+              <source src="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69fe7ff469827469821759a3.mov" type="video/mp4">
+              Your browser can't play this video. <a href="https://assets.cdn.filesafe.space/nFa3G1h5mX0OAxdOHCiY/media/69fe7ff469827469821759a3.mov" style="color:#fff">Download it here</a>.
+            </video>
+          </div>
+        </div>
       </div>
     </div>
   </section>
