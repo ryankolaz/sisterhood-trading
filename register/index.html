@@ -188,20 +188,6 @@
     .success-title{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--dark);margin-bottom:10px}
     .success-body{font-size:14px;color:var(--body);line-height:1.7;margin-bottom:18px}
 
-    /* ===== REG MODAL ===== */
-    .reg-modal{position:fixed;inset:0;z-index:200;background:rgba(20,20,20,0.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;animation:fadeIn 0.25s ease}
-    .reg-modal.open{display:flex}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    .reg-modal-card{position:relative;background:var(--white);border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.35);animation:slideUp 0.3s ease}
-    @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-    .reg-modal-close{position:absolute;top:14px;right:14px;z-index:2;width:36px;height:36px;border-radius:50%;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--dark);transition:background 0.2s}
-    .reg-modal-close:hover{background:var(--cream)}
-    .reg-modal-frame{width:100%;height:600px;max-height:90vh;border:0;display:block;background:transparent}
-    @media (max-width:600px){
-      .reg-modal{padding:12px}
-      .reg-modal-card{border-radius:16px}
-      .reg-modal-frame{height:80vh}
-    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 960px){
@@ -460,19 +446,6 @@
     <p class="final-cta-sub">Free workshop. Live walkthrough of the strategy.</p>
   </section>
 
-  <!-- REG MODAL -->
-  <div class="reg-modal" id="regModal" role="dialog" aria-modal="true" aria-label="Register for the workshop">
-    <div class="reg-modal-card">
-      <button class="reg-modal-close" id="regModalClose" type="button" aria-label="Close">&times;</button>
-      <iframe
-        id="wjRegisterFrame"
-        title="Register for the live workshop"
-        class="reg-modal-frame"
-        allow="clipboard-write"
-        src="about:blank"></iframe>
-    </div>
-  </div>
-
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-inner">
@@ -491,36 +464,14 @@
     });
   </script>
 
-  <!-- REG MODAL: open/close + lazy-load WJ form -->
+  <!-- REG BUTTON: navigate to WJ hosted reg page -->
   <script>
     (function(){
-      var WJ_FORM_URL = 'https://event.webinarjam.com/register/2/xwln4xhl/form?formTemplate=2&formColor=1&webinar_id=2&offset=-300&allowRedirect=true';
-      var modal = document.getElementById('regModal');
-      var frame = document.getElementById('wjRegisterFrame');
-      var closeBtn = document.getElementById('regModalClose');
-      if(!modal || !frame) return;
-
-      function openModal(){
-        if(frame.getAttribute('src') !== WJ_FORM_URL){
-          frame.setAttribute('src', WJ_FORM_URL);
-        }
-        modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeModal(){
-        modal.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-
+      var WJ_REG_URL = 'https://event.webinarjam.com/mrnvq0/register/xwln4xhl';
       document.querySelectorAll('[data-open-reg]').forEach(function(btn){
-        btn.addEventListener('click', openModal);
-      });
-      if(closeBtn) closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', function(e){
-        if(e.target === modal) closeModal();
-      });
-      document.addEventListener('keydown', function(e){
-        if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+        btn.addEventListener('click', function(){
+          window.location.href = WJ_REG_URL;
+        });
       });
     })();
   </script>
