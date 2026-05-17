@@ -310,42 +310,14 @@
           <div class="form-header">
             <p class="form-title">Reserve your spot</p>
             <p class="form-handle">Free. Live. Limited seats.</p>
-            <span class="form-spots">Replay sent to all registrants</span>
           </div>
 
-          <div class="form-error" id="formError">Something went wrong. Please try again or email lexi@sisterhoodtrading.com.</div>
-
-          <form id="registerForm" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="firstName">First Name</label>
-                <input class="form-input" type="text" id="firstName" name="firstName" required autocomplete="given-name" placeholder="Jane">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="lastName">Last Name</label>
-                <input class="form-input" type="text" id="lastName" name="lastName" required autocomplete="family-name" placeholder="Doe">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="email">Email</label>
-              <input class="form-input" type="email" id="email" name="email" required autocomplete="email" placeholder="jane@email.com">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="phone">Phone <span class="opt">(optional, for SMS reminder)</span></label>
-              <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(555) 123-4567">
-            </div>
-
-            <button class="form-submit" type="submit" id="submitBtn">Save My Seat &#8594;</button>
-          </form>
-
-          <div class="form-success" id="formSuccess">
-            <div class="success-check">&#10003;</div>
-            <p class="success-title">You're in.</p>
-            <p class="success-body">Check your inbox for your confirmation email with the Zoom link and calendar invite. See you on the workshop.</p>
-          </div>
-
+          <iframe
+            id="wjRegisterFrame"
+            src="https://event.webinarjam.com/register/2/xwln4xhl/form?formTemplate=2&formColor=1&webinar_id=2&offset=-300&allowRedirect=true"
+            title="Register for the live workshop"
+            style="width:100%;min-height:520px;border:0;display:block;background:transparent"
+            allow="clipboard-write"></iframe>
         </div>
 
         <ul class="hero-bullets">
@@ -492,53 +464,6 @@
         item.classList.toggle('open');
       });
     });
-  </script>
-
-  <!-- FORM SUBMIT: redirect to WJ hosted reg page with prefill params -->
-  <script>
-    (function(){
-      var WJ_REGISTER_URL = 'https://event.webinarjam.com/mrnvq0/register/xwln4xhl';
-
-      var form = document.getElementById('registerForm');
-      var btn = document.getElementById('submitBtn');
-      var errEl = document.getElementById('formError');
-
-      function hideError(){ errEl.classList.remove('show'); }
-      function showError(msg){
-        if(msg) errEl.textContent = msg;
-        errEl.classList.add('show');
-      }
-
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        hideError();
-
-        var firstName = document.getElementById('firstName').value.trim();
-        var lastName = document.getElementById('lastName').value.trim();
-        var email = document.getElementById('email').value.trim();
-        var phone = document.getElementById('phone').value.trim();
-
-        if(!firstName || !lastName || !email){
-          showError('Please fill in your name and email.');
-          return;
-        }
-        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-          showError('Please enter a valid email address.');
-          return;
-        }
-
-        btn.disabled = true;
-        btn.textContent = 'Saving your seat...';
-
-        var params = new URLSearchParams({
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          phone: phone
-        });
-        window.location.href = WJ_REGISTER_URL + '?' + params.toString();
-      });
-    })();
   </script>
 
   <!-- COUNTDOWN -->
