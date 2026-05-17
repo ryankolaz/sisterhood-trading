@@ -333,6 +333,13 @@
     </div>
   </footer>
 
+  <!-- IFRAME BUST: if loaded inside the WJ reg modal, break out to top-level -->
+  <script>
+    if(window.self !== window.top){
+      try { window.top.location.href = window.self.location.href; } catch(e){}
+    }
+  </script>
+
   <!-- WJ URL PARAMS: personalize headline + wire up join link -->
   <script>
     (function(){
