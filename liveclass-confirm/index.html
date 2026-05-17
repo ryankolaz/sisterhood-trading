@@ -245,20 +245,19 @@
         </div>
       </div>
 
-      <!-- STEP 2: INVITE LINK -->
+      <!-- STEP 2: CHECK EMAIL -->
       <div class="step">
         <div class="step-head">
           <div class="step-num">2</div>
-          <div class="step-title">This is your private invite link to join the class on Sunday at 2 PM EST. Save this.</div>
+          <div class="step-title">Your private class link was just sent to your email. Save it for Sunday.</div>
         </div>
         <div class="invite-box">
-          <div class="invite-icon">&#9654;</div>
+          <div class="invite-icon">&#9993;</div>
           <div class="invite-content">
-            <p class="invite-label">Your Class Link</p>
-            <a href="#" id="inviteLink" class="invite-link">https://us06web.zoom.us/j/your-class-link-here</a>
-            <p class="invite-note">Bookmark this page or copy the link into your calendar invite.</p>
+            <p class="invite-label">Check Your Inbox</p>
+            <span class="invite-link">Your unique class link is in the confirmation email I just sent you.</span>
+            <p class="invite-note">Bookmark that email or text the link to yourself so you don't lose it.</p>
           </div>
-          <button class="copy-btn" id="copyBtn" type="button">Copy Link</button>
         </div>
       </div>
 
@@ -340,63 +339,17 @@
     }
   </script>
 
-  <!-- WJ URL PARAMS: personalize headline + wire up join link -->
+  <!-- WJ URL PARAMS: personalize headline only -->
   <script>
     (function(){
       function getParam(name){
         var m = new RegExp('[?&]' + name + '=([^&]+)').exec(window.location.search);
         return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
       }
-      var liveUrl = getParam('live_room_url');
       var firstName = getParam('first_name');
-
-      var link = document.getElementById('inviteLink');
-      if(link){
-        if(liveUrl){
-          link.setAttribute('href', liveUrl);
-          link.textContent = liveUrl;
-        } else {
-          link.setAttribute('href', '#');
-          link.textContent = 'Check your email for your private class link.';
-          var copyBtn = document.getElementById('copyBtn');
-          if(copyBtn) copyBtn.style.display = 'none';
-        }
-      }
-
       if(firstName){
         var h1 = document.querySelector('.hero h1');
         if(h1) h1.innerHTML = 'Thank you, ' + firstName + '. <em>I can\'t wait to share this with you.</em>';
-      }
-    })();
-  </script>
-
-  <!-- COPY LINK SCRIPT -->
-  <script>
-    (function(){
-      var btn = document.getElementById('copyBtn');
-      var link = document.getElementById('inviteLink');
-      if(!btn || !link) return;
-      btn.addEventListener('click', function(){
-        var url = link.getAttribute('href');
-        if(!url || url === '#') url = link.textContent.trim();
-        if(navigator.clipboard && navigator.clipboard.writeText){
-          navigator.clipboard.writeText(url).then(function(){ showCopied(); });
-        } else {
-          var ta = document.createElement('textarea');
-          ta.value = url;
-          document.body.appendChild(ta);
-          ta.select();
-          try { document.execCommand('copy'); showCopied(); } catch(e) {}
-          document.body.removeChild(ta);
-        }
-      });
-      function showCopied(){
-        btn.classList.add('copied');
-        btn.textContent = 'Copied';
-        setTimeout(function(){
-          btn.classList.remove('copied');
-          btn.textContent = 'Copy Link';
-        }, 2200);
       }
     })();
   </script>
