@@ -465,26 +465,14 @@
     });
   </script>
 
-  <!-- REG BUTTON: open WJ reg in a centered popup window -->
+  <!-- REG BUTTON: navigate to WJ reg in same tab -->
   <script>
     (function(){
       var WJ_REG_URL = 'https://event.webinarjam.com/mrnvq0/register/xwln4xhl';
-      function openPopup(){
-        var w = 520, h = 720;
-        var left = (window.screen.availWidth - w) / 2;
-        var top = (window.screen.availHeight - h) / 2;
-        var features = 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top +
-                       ',resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no';
-        var popup = window.open(WJ_REG_URL, 'wj_register', features);
-        // Popup blocked — fall back to full nav
-        if(!popup || popup.closed){
-          window.location.href = WJ_REG_URL;
-        } else {
-          popup.focus();
-        }
-      }
       document.querySelectorAll('[data-open-reg]').forEach(function(btn){
-        btn.addEventListener('click', openPopup);
+        btn.addEventListener('click', function(){
+          window.location.href = WJ_REG_URL;
+        });
       });
     })();
   </script>
