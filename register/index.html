@@ -494,32 +494,19 @@
     });
   </script>
 
-  <!-- FORM SUBMIT -->
+  <!-- FORM SUBMIT: redirect to WJ hosted reg page with prefill params -->
   <script>
     (function(){
-      // TODO: Confirm/create this n8n webhook for webinar registrations.
-      // The /apply page uses sta-application. This one should route to a new workflow.
-      var N8N_WEBHOOK = 'https://ryankolaz.app.n8n.cloud/webhook/sta-webinar-register';
-      var SUPABASE_LOG = '/api/log-submission';
+      var WJ_REGISTER_URL = 'https://event.webinarjam.com/mrnvq0/register/xwln4xhl';
 
       var form = document.getElementById('registerForm');
       var btn = document.getElementById('submitBtn');
       var errEl = document.getElementById('formError');
-      var successEl = document.getElementById('formSuccess');
 
       function hideError(){ errEl.classList.remove('show'); }
       function showError(msg){
         if(msg) errEl.textContent = msg;
         errEl.classList.add('show');
-      }
-
-      function logToSupabase(payload, n8nStatus, n8nError){
-        var logData = Object.assign({}, payload, { n8n_status: n8nStatus, n8n_error: n8nError });
-        fetch(SUPABASE_LOG, {
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify(logData)
-        }).catch(function(err){ console.warn('Supabase log error:', err); });
       }
 
       form.addEventListener('submit', function(e){
@@ -543,33 +530,13 @@
         btn.disabled = true;
         btn.textContent = 'Saving your seat...';
 
-        var payload = {
-          status: 'webinar_registration',
-          type: 'webinar',
-          source: 'sisterhoodtrading.com/register',
-          firstName: firstName,
-          lastName: lastName,
+        var params = new URLSearchParams({
+          first_name: firstName,
+          last_name: lastName,
           email: email,
-          phone: phone,
-          submitted_at: new Date().toISOString()
-        };
-
-        fetch(N8N_WEBHOOK, {
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify(payload)
-        }).then(function(res){
-          if(!res.ok) throw new Error('webhook ' + res.status);
-          logToSupabase(payload, 'delivered', null);
-          form.style.display = 'none';
-          successEl.classList.add('show');
-        }).catch(function(err){
-          console.warn('Webhook error:', err);
-          logToSupabase(payload, 'failed', err.message || 'unknown');
-          // Show success anyway. Supabase log is the backstop.
-          form.style.display = 'none';
-          successEl.classList.add('show');
+          phone: phone
         });
+        window.location.href = WJ_REGISTER_URL + '?' + params.toString();
       });
     })();
   </script>
