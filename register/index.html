@@ -203,6 +203,26 @@
     .reg-modal-error{display:none;background:#fef2f2;border:1px solid #fecaca;color:var(--burgundy);font-size:13px;padding:10px 14px;border-radius:10px;margin-bottom:12px}
     .reg-modal-error.show{display:block}
     .reg-modal-footer{text-align:center;font-size:11px;color:var(--muted);margin-top:14px;line-height:1.6}
+    /* Phone country code picker (modal) */
+    .reg-phone-wrap{display:flex;align-items:stretch;gap:0;border:1.5px solid var(--border);border-radius:12px;background:var(--white);transition:border-color 0.2s,box-shadow 0.2s;position:relative}
+    .reg-phone-wrap:focus-within{border-color:var(--pink);box-shadow:0 0 0 3px rgba(45,90,61,0.08)}
+    .reg-country-select{display:flex;align-items:center;gap:6px;padding:13px 12px 13px 14px;cursor:pointer;flex-shrink:0;font-size:14px;color:var(--dark);font-weight:600;border-right:1px solid var(--border);user-select:none}
+    .reg-country-flag{font-size:18px;line-height:1}
+    .reg-country-code{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--dark)}
+    .reg-country-select svg{color:var(--muted)}
+    .reg-phone-input{flex:1;min-width:0;border:none!important;background:transparent;padding:13px 14px;font-family:var(--sans);font-size:15px;color:var(--dark);outline:none}
+    .reg-phone-input:focus{box-shadow:none!important}
+    .reg-country-dropdown{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--white);border:1.5px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.12);z-index:50;max-height:240px;overflow:hidden;flex-direction:column}
+    .reg-country-dropdown.open{display:flex}
+    .reg-country-search{border:none;border-bottom:1px solid var(--border);padding:10px 14px;font-family:var(--sans);font-size:13px;color:var(--dark);outline:none;background:var(--cream)}
+    .reg-country-search::placeholder{color:var(--muted)}
+    .reg-country-list{overflow-y:auto;max-height:196px}
+    .reg-country-item{display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;font-size:13px;color:var(--dark);transition:background 0.15s}
+    .reg-country-item:hover{background:var(--cream)}
+    .reg-country-item .ci-flag{font-size:16px}
+    .reg-country-item .ci-name{flex:1}
+    .reg-country-item .ci-code{color:var(--muted);font-size:12px;font-weight:600}
+    .form-input.input-invalid,.reg-phone-wrap.input-invalid{border-color:var(--burgundy)!important}
     @media (max-width: 480px){
       .reg-modal-card{padding:30px 22px 22px;border-radius:18px}
       .reg-modal-title{font-size:21px}
@@ -512,7 +532,18 @@
         </div>
         <div class="form-group">
           <label class="form-label" for="rmPhone">Phone</label>
-          <input class="form-input" type="tel" id="rmPhone" name="phone" autocomplete="tel" placeholder="(555) 555-5555" required>
+          <div class="reg-phone-wrap" id="rmPhoneWrap">
+            <div class="reg-country-select" id="rmCountryBtn">
+              <span class="reg-country-flag" id="rmFlag">&#127482;&#127480;</span>
+              <span class="reg-country-code" id="rmCode">+1</span>
+              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <input class="reg-phone-input" type="tel" id="rmPhone" name="phone" autocomplete="tel" placeholder="(555) 123-4567">
+            <div class="reg-country-dropdown" id="rmDropdown">
+              <input type="text" class="reg-country-search" id="rmCountrySearch" placeholder="Search country...">
+              <div class="reg-country-list" id="rmCountryList"></div>
+            </div>
+          </div>
         </div>
         <button class="form-submit" type="submit" id="rmSubmit">Save My Seat &#8594;</button>
         <p class="reg-modal-footer">Free workshop. We'll send your join link by email.</p>
@@ -529,7 +560,120 @@
       var errBox = document.getElementById('regModalError');
       var submitBtn = document.getElementById('rmSubmit');
       var firstInput = document.getElementById('rmFirst');
+      var emailInput = document.getElementById('rmEmail');
+      var phoneInput = document.getElementById('rmPhone');
+      var phoneWrap = document.getElementById('rmPhoneWrap');
 
+      // ===== COUNTRY CODE PICKER =====
+      var countries = [
+        {name:'United States',code:'+1',flag:'\u{1F1FA}\u{1F1F8}'},
+        {name:'United Kingdom',code:'+44',flag:'\u{1F1EC}\u{1F1E7}'},
+        {name:'Canada',code:'+1',flag:'\u{1F1E8}\u{1F1E6}'},
+        {name:'Australia',code:'+61',flag:'\u{1F1E6}\u{1F1FA}'},
+        {name:'Germany',code:'+49',flag:'\u{1F1E9}\u{1F1EA}'},
+        {name:'France',code:'+33',flag:'\u{1F1EB}\u{1F1F7}'},
+        {name:'India',code:'+91',flag:'\u{1F1EE}\u{1F1F3}'},
+        {name:'Brazil',code:'+55',flag:'\u{1F1E7}\u{1F1F7}'},
+        {name:'Mexico',code:'+52',flag:'\u{1F1F2}\u{1F1FD}'},
+        {name:'Japan',code:'+81',flag:'\u{1F1EF}\u{1F1F5}'},
+        {name:'South Korea',code:'+82',flag:'\u{1F1F0}\u{1F1F7}'},
+        {name:'Italy',code:'+39',flag:'\u{1F1EE}\u{1F1F9}'},
+        {name:'Spain',code:'+34',flag:'\u{1F1EA}\u{1F1F8}'},
+        {name:'Netherlands',code:'+31',flag:'\u{1F1F3}\u{1F1F1}'},
+        {name:'Sweden',code:'+46',flag:'\u{1F1F8}\u{1F1EA}'},
+        {name:'Switzerland',code:'+41',flag:'\u{1F1E8}\u{1F1ED}'},
+        {name:'Norway',code:'+47',flag:'\u{1F1F3}\u{1F1F4}'},
+        {name:'Denmark',code:'+45',flag:'\u{1F1E9}\u{1F1F0}'},
+        {name:'Ireland',code:'+353',flag:'\u{1F1EE}\u{1F1EA}'},
+        {name:'New Zealand',code:'+64',flag:'\u{1F1F3}\u{1F1FF}'},
+        {name:'Singapore',code:'+65',flag:'\u{1F1F8}\u{1F1EC}'},
+        {name:'UAE',code:'+971',flag:'\u{1F1E6}\u{1F1EA}'},
+        {name:'South Africa',code:'+27',flag:'\u{1F1FF}\u{1F1E6}'},
+        {name:'Nigeria',code:'+234',flag:'\u{1F1F3}\u{1F1EC}'},
+        {name:'Philippines',code:'+63',flag:'\u{1F1F5}\u{1F1ED}'},
+        {name:'Colombia',code:'+57',flag:'\u{1F1E8}\u{1F1F4}'},
+        {name:'Argentina',code:'+54',flag:'\u{1F1E6}\u{1F1F7}'},
+        {name:'Portugal',code:'+351',flag:'\u{1F1F5}\u{1F1F9}'},
+        {name:'Poland',code:'+48',flag:'\u{1F1F5}\u{1F1F1}'},
+        {name:'Slovenia',code:'+386',flag:'\u{1F1F8}\u{1F1EE}'},
+        {name:'Austria',code:'+43',flag:'\u{1F1E6}\u{1F1F9}'},
+        {name:'Belgium',code:'+32',flag:'\u{1F1E7}\u{1F1EA}'},
+        {name:'Israel',code:'+972',flag:'\u{1F1EE}\u{1F1F1}'},
+        {name:'Turkey',code:'+90',flag:'\u{1F1F9}\u{1F1F7}'},
+        {name:'Thailand',code:'+66',flag:'\u{1F1F9}\u{1F1ED}'},
+        {name:'Malaysia',code:'+60',flag:'\u{1F1F2}\u{1F1FE}'},
+        {name:'Indonesia',code:'+62',flag:'\u{1F1EE}\u{1F1E9}'},
+        {name:'Ghana',code:'+233',flag:'\u{1F1EC}\u{1F1ED}'},
+        {name:'Kenya',code:'+254',flag:'\u{1F1F0}\u{1F1EA}'},
+        {name:'Chile',code:'+56',flag:'\u{1F1E8}\u{1F1F1}'}
+      ];
+
+      var selectedCountryCode = '+1';
+      var dropdown = document.getElementById('rmDropdown');
+      var countryList = document.getElementById('rmCountryList');
+      var countrySearch = document.getElementById('rmCountrySearch');
+      var flagEl = document.getElementById('rmFlag');
+      var codeEl = document.getElementById('rmCode');
+      var countryBtn = document.getElementById('rmCountryBtn');
+
+      function renderCountries(filter){
+        countryList.innerHTML = '';
+        var f = (filter||'').toLowerCase();
+        countries.forEach(function(c){
+          if(f && c.name.toLowerCase().indexOf(f)===-1 && c.code.indexOf(f)===-1) return;
+          var div = document.createElement('div');
+          div.className = 'reg-country-item';
+          div.innerHTML = '<span class="ci-flag">'+c.flag+'</span><span class="ci-name">'+c.name+'</span><span class="ci-code">'+c.code+'</span>';
+          div.addEventListener('click',function(e){
+            e.stopPropagation();
+            selectedCountryCode = c.code;
+            flagEl.textContent = c.flag;
+            codeEl.textContent = c.code;
+            dropdown.classList.remove('open');
+          });
+          countryList.appendChild(div);
+        });
+      }
+
+      countryBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var isOpen = dropdown.classList.contains('open');
+        if(isOpen){
+          dropdown.classList.remove('open');
+        } else {
+          dropdown.classList.add('open');
+          countrySearch.value = '';
+          renderCountries('');
+          setTimeout(function(){countrySearch.focus()},50);
+        }
+      });
+      countrySearch.addEventListener('click', function(e){ e.stopPropagation(); });
+      countrySearch.addEventListener('input', function(){ renderCountries(this.value); });
+
+      document.addEventListener('click', function(e){
+        if(!e.target.closest('.reg-country-dropdown') && !e.target.closest('.reg-country-select')){
+          dropdown.classList.remove('open');
+        }
+      });
+
+      // Auto-detect country code from + prefix typed into phone
+      phoneInput.addEventListener('input', function(){
+        var val = this.value.trim();
+        if(val.startsWith('+')){
+          var matched = null;
+          countries.forEach(function(c){
+            if(val.startsWith(c.code) && (!matched || c.code.length > matched.code.length)) matched = c;
+          });
+          if(matched){
+            selectedCountryCode = matched.code;
+            flagEl.textContent = matched.flag;
+            codeEl.textContent = matched.code;
+            this.value = val.substring(matched.code.length).trim();
+          }
+        }
+      });
+
+      // ===== MODAL =====
       function openModal(){
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
@@ -540,10 +684,17 @@
         document.body.style.overflow = '';
         errBox.classList.remove('show');
         errBox.textContent = '';
+        clearInvalid();
       }
       function showError(msg){
         errBox.textContent = msg;
         errBox.classList.add('show');
+      }
+      function clearInvalid(){
+        [firstInput, document.getElementById('rmLast'), emailInput].forEach(function(el){
+          el.classList.remove('input-invalid');
+        });
+        phoneWrap.classList.remove('input-invalid');
       }
 
       document.querySelectorAll('[data-open-reg]').forEach(function(btn){
@@ -557,22 +708,42 @@
         if(e.key === 'Escape' && modal.classList.contains('show')) closeModal();
       });
 
+      // ===== VALIDATION =====
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
       form.addEventListener('submit', async function(e){
         e.preventDefault();
         errBox.classList.remove('show');
+        clearInvalid();
 
-        var payload = {
-          first_name: document.getElementById('rmFirst').value.trim(),
-          last_name:  document.getElementById('rmLast').value.trim(),
-          email:      document.getElementById('rmEmail').value.trim(),
-          phone:      document.getElementById('rmPhone').value.replace(/[^\d]/g,''),
-          phone_country_code: '1'
-        };
+        var firstName = firstInput.value.trim();
+        var lastName  = document.getElementById('rmLast').value.trim();
+        var email     = emailInput.value.trim();
+        var phoneRaw  = phoneInput.value.replace(/[^\d]/g,'');
 
-        if(!payload.first_name || !payload.last_name || !payload.email || !payload.phone){
-          showError('Please fill in all fields.');
+        var problems = [];
+        if(!firstName){ firstInput.classList.add('input-invalid'); problems.push('first name'); }
+        if(!lastName){ document.getElementById('rmLast').classList.add('input-invalid'); problems.push('last name'); }
+        if(!email || !emailRegex.test(email)){ emailInput.classList.add('input-invalid'); problems.push('a valid email (name@example.com)'); }
+        // Phone: min 7 digits (intl), max 15 (E.164). US/CA must be 10.
+        var isUSCA = (selectedCountryCode === '+1');
+        if(!phoneRaw || phoneRaw.length < 7 || phoneRaw.length > 15 || (isUSCA && phoneRaw.length !== 10)){
+          phoneWrap.classList.add('input-invalid');
+          problems.push(isUSCA ? 'a 10-digit phone number' : 'a valid phone number');
+        }
+
+        if(problems.length){
+          showError('Please enter ' + problems.join(', ') + '.');
           return;
         }
+
+        var payload = {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          phone: phoneRaw,
+          phone_country_code: selectedCountryCode.replace('+','')
+        };
 
         submitBtn.disabled = true;
         submitBtn.textContent = 'Reserving...';
