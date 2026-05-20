@@ -27,7 +27,7 @@ module.exports = async function handler(req, res) {
     first_name,
     last_name,
     email,
-    phone_country_code: phone_country_code || 'US',
+    phone_country_code: phone_country_code || '1',
     phone
   });
 
