@@ -82,10 +82,9 @@
     .proof h2 em{font-style:italic;color:var(--pink)}
     .proof-sub{font-size:15px;color:var(--body);max-width:540px;margin:0 auto}
 
-    .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-    .proof-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(45,90,61,0.05);transition:transform 0.2s,box-shadow 0.2s}
-    .proof-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(45,90,61,0.1)}
-    .proof-card img{display:block;width:100%;height:auto}
+    .proof-grid{column-count:4;column-gap:18px}
+    .proof-card{break-inside:avoid;margin-bottom:18px;display:block}
+    .proof-card img{display:block;width:100%;height:auto;border-radius:10px}
 
     /* ===== FOOTER ===== */
     .footer{padding:40px 32px;background:var(--cream);text-align:center;border-top:1px solid var(--border)}
@@ -95,7 +94,7 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 960px){
-      .proof-grid{grid-template-columns:repeat(3,1fr)}
+      .proof-grid{column-count:3}
     }
     @media (max-width: 720px){
       .top-bar{padding:10px 16px;font-size:12px;gap:10px}
@@ -114,8 +113,9 @@
 
       .proof{padding:64px 20px 72px}
       .proof h2{font-size:24px}
-      .proof-grid{grid-template-columns:repeat(2,1fr);gap:12px}
-      .proof-card{border-radius:12px}
+      .proof-grid{column-count:2;column-gap:12px}
+      .proof-card{margin-bottom:12px}
+      .proof-card img{border-radius:8px}
 
       .footer{padding:32px 20px}
     }
